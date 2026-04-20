@@ -12,6 +12,55 @@ const routes = [
         icon: 'employee-management',
         title: 'Hodimlar boshqaruvi',
         component: () => import('@/views/employee/EmployeeManagement.vue'),
+    },
+    {
+        path: '/real-time-map',
+        name: 'RealTimeMap',
+        icon: 'real-time-map',
+        title: 'Monitoring',
+        component: () => import('@/views/employee/EmployeeManagement.vue'),
+    },
+    {
+        path: '/trucks',
+        name: 'Trucks',
+        icon: 'trucks',
+        title: 'Transportlar',
+        component: () => import('@/views/employee/EmployeeManagement.vue'),
+    },
+    {
+        path: '/loads',
+        name: 'Loads',
+        icon: 'loads',
+        title: 'Yuklar',
+        component: () => import('@/views/employee/EmployeeManagement.vue'),
+    },
+    {
+        path: '/routes',
+        name: 'Routes',
+        icon: 'routes',
+        title: 'Marshrutlar',
+        component: () => import('@/views/employee/EmployeeManagement.vue'),
+    },
+    {
+        path: '/kpi-efficiency',
+        name: 'KpiAndEfficiency',
+        icon: 'efficiency',
+        title: 'KPI va Samaradorlik',
+        component: () => import('@/views/employee/EmployeeManagement.vue'),
+    },
+    {
+        path: '/reports',
+        name: 'Reports',
+        icon: 'report',
+        title: 'Hisobotlar',
+        component: () => import('@/views/employee/EmployeeManagement.vue'),
+    },
+    {
+        path: '/settings',
+        name: 'Settings',
+        icon: 'settings',
+        title: 'Sozlamalar',
+        component: () => import('@/views/employee/EmployeeManagement.vue'),
     }
 ]
 

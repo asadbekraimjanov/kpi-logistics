@@ -1,8 +1,8 @@
 <template>
     <div class="w-full h-full flex">
-        <div class="h-[100vh] bg-[#0c41a5] transition-all" :class="!isCollapse ? 'w-60' : ''">
+        <div class="h-[100vh] bg-[#03396C] transition-all" :class="!isCollapse ? 'w-60' : ''">
             <div class="w-full flex justify-center">
-                <img src="/logo.png" class="w-10 bg-[#0c41a5] !mt-4 !mb-3 cursor-pointer transition-all duration-700"
+                <img src="/logo.png" class="w-10 bg-[#03396C] !mt-4 !mb-3 cursor-pointer transition-all duration-700"
                      @click="router.push('/dashboard')" alt="" :class="isCollapse ? 'w-10' : 'w-20'">
             </div>
             <el-menu
@@ -16,7 +16,7 @@
                 </el-menu-item>
             </el-menu>
         </div>
-        <div class="w-full">
+        <div :class="isCollapse ? 'w-full' : 'w-[calc(100%-15rem)]'">
             <div class="w-full h-15 flex items-center justify-between !px-4 text-[#033695] shadow z-50" style="background-color: #F6F5FA">
                 <div class="flex items-center gap-2">
                     <!--                <img :src="isCollapse ? '/tabler-icons/menu-expand.svg' : '/tabler-icons/menu-fold.svg'" @click="isCollapse = !isCollapse"-->
@@ -54,7 +54,7 @@ onMounted(() => {
 
 <style>
 .el-menu-vertical-demo {
-    background-color: #0c41a5;
+    background-color: #03396C;
     color: white;
     border: none;
 }
@@ -66,9 +66,11 @@ onMounted(() => {
     font-weight: 500;
 }
 .el-menu-item.is-active {
+    background-color: #2558b3;
+    color: white;
 }
 .el-menu-item:hover {
-    background-color: #0c41a5;
-    color: #cacaca;
+    background-color: #2050a6;
+    color: #ffffff;
 }
 </style>
