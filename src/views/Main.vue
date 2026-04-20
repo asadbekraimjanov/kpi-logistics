@@ -23,7 +23,7 @@
                     <!--                     class="!h-10" alt="">-->
                     <el-icon v-if="isCollapse" @click="isCollapse = !isCollapse" size="24"><Expand /></el-icon>
                     <el-icon v-else @click="isCollapse = !isCollapse" size="24"><Fold /></el-icon>
-                    <p class="text-lg uppercase">Ish faoliyati samaradorligini monitoring qilish platformasi</p>
+                    <p class="text-lg font-semibold uppercase">Ish faoliyati samaradorligini monitoring qilish platformasi</p>
                 </div>
                 <el-avatar class="cursor-pointer"></el-avatar>
             </div>
