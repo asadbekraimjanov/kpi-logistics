@@ -1,7 +1,7 @@
 <template>
     <div class="w-full !p-4">
-        <div class="w-full flex justify-between items-center gap-2 !pb-4">
-            <el-card class="w-full flex justify-between gap-2">
+        <div class="w-full h-max flex justify-between items-center gap-2 !pb-4">
+            <el-card class="w-full h-full flex justify-between gap-2">
                 <div class="w-full flex justify-between items-center">
                     <div class="flex flex-col">
                         <p>Xodimlar soni</p>
@@ -15,7 +15,7 @@
                     </div>
                 </div>
             </el-card>
-            <el-card class="w-full flex justify-between gap-2">
+            <el-card class="w-full h-full flex justify-between gap-2">
                 <div class="w-full flex justify-between items-center">
                     <div class="flex flex-col">
                         <p>Faol xodimlar soni</p>
@@ -29,21 +29,7 @@
                     </div>
                 </div>
             </el-card>
-            <el-card class="w-full flex justify-between gap-2">
-                <div class="w-full flex justify-between items-center">
-                    <div class="flex flex-col">
-                        <p>Muammoli/Jarima olganlar soni</p>
-                        <p class="text-2xl font-normal">
-                            {{ new Intl.NumberFormat('en-US').format(5000) }}
-                            <span class="text-lg font-semibold text-[#FF4C51]">(20%)</span>
-                        </p>
-                    </div>
-                    <div class="w-12 h-12 flex justify-center items-center rounded bg-red-100">
-                        <img src="/tabler-icons/user-x.svg" alt="">
-                    </div>
-                </div>
-            </el-card>
-            <el-card class="w-full flex justify-between gap-2">
+            <el-card class="w-full h-full flex justify-between gap-2">
                 <div class="w-full flex justify-between items-center">
                     <div class="flex flex-col">
                         <p>Ishga kelganlar soni</p>
@@ -54,6 +40,20 @@
                     </div>
                     <div class="w-12 h-12 flex justify-center items-center rounded bg-[#FFF3D6]">
                         <img src="/tabler-icons/user-scan.svg" alt="">
+                    </div>
+                </div>
+            </el-card>
+            <el-card class="w-full h-full flex justify-between gap-2">
+                <div class="w-full flex justify-between items-center">
+                    <div class="flex flex-col">
+                        <p>Muammoli/Jarima olganlar</p>
+                        <p class="text-2xl font-normal">
+                            {{ new Intl.NumberFormat('en-US').format(5000) }}
+                            <span class="text-lg font-semibold text-[#FF4C51]">(20%)</span>
+                        </p>
+                    </div>
+                    <div class="w-12 h-12 flex justify-center items-center rounded bg-red-100">
+                        <img src="/tabler-icons/user-x.svg" alt="">
                     </div>
                 </div>
             </el-card>
@@ -70,7 +70,7 @@
             <el-button type="primary" class="!bg-[#577eff]">Qo'shish</el-button>
         </div>
 
-        <el-table :data="tableData" border style="height: calc(100vh - 300px);">
+        <el-table :data="tableData" border style="height: calc(100vh - 19rem);">
             <el-table-column label="№" header-align="center" width="50">
                 <template #default="scope">{{ scope.$index + 1 }}</template>
             </el-table-column>
@@ -82,11 +82,11 @@
                     </div>
                 </template>
             </el-table-column>
-            <el-table-column label="F.I.SH" prop="familiyasiIsmiOtasiningIsmi" />
-            <el-table-column label="Tashkilot" prop="tashkilotNomi" />
-            <el-table-column label="Bo'lim" prop="bolimNomi" />
-            <el-table-column label="Lavozim" prop="lavozimi" />
-            <el-table-column label="Tug'ilgan sana" align="center">
+            <el-table-column label="F.I.SH" prop="familiyasiIsmiOtasiningIsmi" min-width="170" />
+            <el-table-column label="Tashkilot" prop="tashkilotNomi" min-width="130" />
+            <el-table-column label="Bo'lim" prop="bolimNomi" min-width="130" />
+            <el-table-column label="Lavozim" prop="lavozimi" min-width="130" />
+            <el-table-column label="Tug'ilgan sana" align="center" min-width="130">
                 <template #default="scope">
                     <div class="flex justify-center">
                         <p class="w-max text-white rounded !px-2 bg-blue-500 flex items-center gap-1">
@@ -96,14 +96,20 @@
                     </div>
                 </template>
             </el-table-column>
-            <el-table-column label="Pasport seriya va raqami">
+            <el-table-column label="Pasport seriya va raqami" min-width="120">
                 <template #default="scope">
                     {{ scope.row.pasportSeriyasi }} {{ scope.row.pasportRaqami }}
                 </template>
             </el-table-column>
-            <el-table-column label="JSHSHIR" prop="jismoniyShaxsShaxsiyIdentifikatsiyaRaqami" />
+            <el-table-column label="JSHSHIR" prop="jismoniyShaxsShaxsiyIdentifikatsiyaRaqami" min-width="150" />
+            <el-table-column label="Status" min-width="100" align="center">
+                <template #default="scope">
+                    <el-tag :type="scope.row.status === 'ACTIVE' ? 'primary' : scope.row.status === 'INACTIVE' ? 'danger' : 'warning'"
+                        >{{ scope.row.status }}</el-tag>
+                </template>
+            </el-table-column>
             <el-table-column label="Jinsi" prop="jinsi" width="80" />
-            <el-table-column label="Telefon raqami">
+            <el-table-column label="Telefon raqami" min-width="160">
                 <template #default="scope">
                     <div class="flex justify-center">
                         <p class="w-max text-white rounded !px-2 bg-cyan-500 flex items-center gap-1">
@@ -113,7 +119,7 @@
                     </div>
                 </template>
             </el-table-column>
-            <el-table-column label="Harakatlar" width="120">
+            <el-table-column label="Harakatlar" width="120" fixed="right">
                 <template #default="scope">
                     <div class="flex gap-2 justify-center">
                         <div @click="onDrawerOpen(scope.row)" class="bg-[#577eff] text-white flex justify-center items-center rounded-md !p-1.5 cursor-pointer hover:bg-blue-400">
@@ -156,6 +162,7 @@ const tableData = ref([
         pasportSeriyasi: "AA",
         pasportRaqami: "1234567",
         jismoniyShaxsShaxsiyIdentifikatsiyaRaqami: "30102981234567",
+        status: "ACTIVE",
         jinsi: "Erkak",
         phoneNumber: "+998500355535"
     },
@@ -168,6 +175,7 @@ const tableData = ref([
         tugilganSana: "1995-07-21",
         pasportSeriyasiVaRaqami: "AB7654321",
         jismoniyShaxsShaxsiyIdentifikatsiyaRaqami: "30507951234567",
+        status: "INACTIVE",
         jinsi: "Ayol",
         phoneNumber: "+998500355535"
     },
@@ -183,6 +191,7 @@ const tableData = ref([
             tugilganSana: `199${id % 10}-0${(id % 9) + 1}-1${id % 9}`,
             pasportSeriyasiVaRaqami: `AA${1000000 + id}`,
             jismoniyShaxsShaxsiyIdentifikatsiyaRaqami: `3${id}0${id}981234567`,
+            status: 'PENDING',
             jinsi: id % 2 === 0 ? "Erkak" : "Ayol",
             phoneNumber: "+998500355535"
         }

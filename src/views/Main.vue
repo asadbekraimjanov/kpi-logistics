@@ -16,7 +16,7 @@
                 </el-menu-item>
             </el-menu>
         </div>
-        <div :class="isCollapse ? 'w-full' : 'w-[calc(100%-15rem)]'">
+        <div :class="isCollapse ? 'w-[calc(100%-4rem)]' : 'w-[calc(100%-15rem)]'">
             <div class="w-full h-15 flex items-center justify-between !px-4 text-[#033695] shadow z-50" style="background-color: #F6F5FA">
                 <div class="flex items-center gap-2">
                     <!--                <img :src="isCollapse ? '/tabler-icons/menu-expand.svg' : '/tabler-icons/menu-fold.svg'" @click="isCollapse = !isCollapse"-->
