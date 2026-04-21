@@ -10,10 +10,10 @@
                 <p class="!mt-3 text-slate-500">Logistika kompaniyalari uchun ijro intizomi va hodimlar ish faoliyati samaradorligini monitoring qilish platformasi</p>
                 <el-form class="!mt-20" :model="formData">
                     <el-form-item label="Email" prop="email" label-position="top">
-                        <el-input class="h-12 bg-slate-500" v-model="formData.email" type="email" placeholder="Foydalanuvchi logini" clearable />
+                        <el-input class="h-12 bg-slate-500 login-input" v-model="formData.email" type="email" placeholder="Foydalanuvchi logini" clearable />
                     </el-form-item>
                     <el-form-item label="Parol" prop="password" class="!-mt-2" label-position="top">
-                        <el-input class="h-12 bg-slate-500" v-model="formData.password" type="password" placeholder="Foydalanuvchi paroli" show-password />
+                        <el-input class="h-12 bg-slate-500 login-input" v-model="formData.password" type="password" placeholder="Foydalanuvchi paroli" show-password />
                     </el-form-item>
                 </el-form>
                 <el-button @click="login" type="primary" class="w-full !h-12 !rounded-none !bg-[#034BA9] hover:!bg-[#396bae] !border-0 !font-normal !mt-2">Tizimga kirish</el-button>
@@ -41,13 +41,13 @@ const login = async () => {
 </script>
 
 <style>
-.el-input .el-input__wrapper {
+.login-input .el-input__wrapper {
     background-color: #ECEEF4;
     border-radius: 0;
     padding: 0 20px;
 }
 
-.el-input__inner::placeholder {
-    color: black;
+.el-input__wrapper .el-input__inner::placeholder {
+    color: gray;
 }
 </style>

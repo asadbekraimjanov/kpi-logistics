@@ -75,13 +75,18 @@
                 </p>
                 <el-button type="danger" class="!mt-6" :icon="Key">Parolni yangilash</el-button>
             </el-card>
-            <el-card class="w-3/5"></el-card>
+            <el-card class="w-3/5">
+                <p class="font-medium text-lg text-gray-700">Reyslar ro'yxati</p>
+                <el-table>
+
+                </el-table>
+            </el-card>
         </div>
     </div>
 </template>
 
 <script setup>
-import {Check, Document, Key, Refresh} from "@element-plus/icons-vue";
+import {Check, Document, Key} from "@element-plus/icons-vue";
 import moment from "moment";
 
 const props = defineProps({

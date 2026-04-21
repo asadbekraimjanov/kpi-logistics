@@ -5,12 +5,8 @@
                 <img src="/logo.png" class="w-10 bg-[#03396C] !mt-4 !mb-3 cursor-pointer transition-all duration-700"
                      @click="router.push('/dashboard')" alt="" :class="isCollapse ? 'w-10' : 'w-20'">
             </div>
-            <el-menu
-                default-active="1"
-                class="el-menu-vertical-demo"
-                :collapse="isCollapse"
-            >
-                <el-menu-item v-for="(item, idx) in navigation" :index="String(idx+1)" @click="onMenuChange(item)">
+            <el-menu :default-active="route.path" class="el-menu-vertical-demo" :collapse="isCollapse" router>
+                <el-menu-item v-for="(item, idx) in navigation" :index="item.path" @click="onMenuChange(item)">
                     <img :src="`/tabler-icons/${item.icon}.svg`" class="!mr-2" alt="">
                     <template #title>{{ item.title }}</template>
                 </el-menu-item>
@@ -39,7 +35,9 @@ import {onMounted, ref} from "vue";
 import navigation from "../../navigation.js";
 import {Expand, Fold} from "@element-plus/icons-vue";
 import router from "@/router/index.js";
+import {useRoute} from "vue-router";
 
+const route = useRoute()
 
 const isCollapse = ref(false);
 
