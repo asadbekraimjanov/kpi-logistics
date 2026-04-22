@@ -39,7 +39,7 @@ import {useRoute} from "vue-router";
 
 const route = useRoute()
 
-const isCollapse = ref(false);
+const isCollapse = ref(true);
 
 const onMenuChange = (item) => {
     router.push(item.path);
