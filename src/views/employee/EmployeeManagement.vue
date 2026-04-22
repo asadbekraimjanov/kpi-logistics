@@ -89,7 +89,7 @@
             <el-table-column label="Tug'ilgan sana" align="center" min-width="130">
                 <template #default="scope">
                     <div class="flex justify-center">
-                        <p class="w-max text-white rounded !px-2 bg-blue-500 flex items-center gap-1">
+                        <p class="w-max rounded !px-2 font-medium flex items-center gap-1">
                             <el-icon><Calendar /></el-icon>
                             {{ moment(scope.row.tugilganSana).format('DD.MM.YYYY') }}
                         </p>
@@ -112,7 +112,7 @@
             <el-table-column label="Telefon raqami" min-width="160">
                 <template #default="scope">
                     <div class="flex justify-center">
-                        <p class="w-max text-white rounded !px-2 bg-cyan-500 flex items-center gap-1">
+                        <p class="w-max rounded !px-2 font-medium flex items-center gap-1">
                             <el-icon><PhoneFilled /></el-icon>
                             {{ scope.row.phoneNumber }}
                         </p>
