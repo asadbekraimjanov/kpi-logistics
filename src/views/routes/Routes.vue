@@ -31,7 +31,21 @@
 </template>
 
 <script setup>
+import {ref} from "vue";
 
+const tableData = ref([
+    {
+        id: 1,
+        jami_masofa: '230',
+        bosib_otilgan_masofa: '245',
+        boshlanish_vaqti: '2026-04-11',
+        kutilayotgan_tugash_vaqti: '2026-04-21',
+        tugash_vaqti: '2026-04-22',
+        marshrut_ogish_masofasi: '15',
+        kechikish_vaqti: '1',
+        drayver: 'freight@gmail.com'
+    }
+])
 </script>
 
 <style scoped>
