@@ -145,7 +145,7 @@
             </template>
         </el-table-column>
 
-        <el-table-column label="Reys vaqti" align="center" min-width="130">
+        <el-table-column label="Reys vaqti" align="center" min-width="170">
             <template #default="scope">
                 <p class="w-full flex gap-2">
                     <img src="/tabler-icons/arrow-right-circle.svg" alt="">
