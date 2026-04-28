@@ -5,7 +5,7 @@
             <el-button class="!bg-[#2558b3] !border-none hover:!bg-blue-500 !text-white" :icon="Plus">Qo'shish</el-button>
         </div>
         <div class="w-full flex gap-3 flex-wrap justify-center">
-            <el-card v-for="item in 16" class="w-[400px] !bg-blue-100 !mb-1 hover:!shadow-md hover:-translate-y-1.5 cursor-pointer">
+            <el-card v-for="item in 16" class="w-[400px] !bg-blue-50 !mb-1 hover:!shadow-md hover:-translate-y-1.5 cursor-pointer">
                 <div class="w-full h-full flex justify-between !border-l-2 !border-l-[#2558b3]">
                     <div class="w-1/3">
                         <img src="@/assets/images/iveco.png" class="w-full" alt="">
