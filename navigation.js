@@ -13,19 +13,19 @@ const routes = [
         title: 'Hodimlar boshqaruvi',
         component: () => import('@/views/employee/EmployeeManagement.vue'),
     },
-    {
-        path: '/real-time-map',
-        name: 'RealTimeMap',
-        icon: 'real-time-map',
-        title: 'Monitoring',
-        component: () => import('@/views/employee/EmployeeManagement.vue'),
-    },
+    // {
+    //     path: '/real-time-map',
+    //     name: 'RealTimeMap',
+    //     icon: 'real-time-map',
+    //     title: 'Monitoring',
+    //     component: () => import('@/views/employee/EmployeeManagement.vue'),
+    // },
     {
         path: '/trucks',
         name: 'Trucks',
         icon: 'trucks',
         title: 'Transportlar',
-        component: () => import('@/views/employee/EmployeeManagement.vue'),
+        component: () => import('@/views/transport/Transport.vue'),
     },
     {
         path: '/loads',
@@ -53,14 +53,14 @@ const routes = [
         name: 'Reports',
         icon: 'reports',
         title: 'Hisobotlar',
-        component: () => import('@/views/employee/EmployeeManagement.vue'),
+        component: () => import('@/views/reports/Reports.vue'),
     },
     {
         path: '/settings',
         name: 'Settings',
         icon: 'settings',
         title: 'Sozlamalar',
-        component: () => import('@/views/employee/EmployeeManagement.vue'),
+        component: () => import('@/views/settings/Settings.vue'),
     }
 ]
 
