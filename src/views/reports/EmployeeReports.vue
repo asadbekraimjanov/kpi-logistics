@@ -4,7 +4,8 @@
         <table class="w-full h-full bg-white !border overflow-x-auto">
             <thead class="bg-gray-100 text-[#3b434e]">
             <tr>
-                <th rowspan="2">Jami hodimlar</th>
+                <th rowspan="2">Lavozim</th>
+                <th rowspan="2">Hodimlar soni</th>
                 <th colspan="4">Shundan</th>
                 <th rowspan="2">Rag'batlantirilgan hodimlar</th>
                 <th rowspan="2">Rag'batlantirilishi kerak bo'lgan hodimlar</th>
@@ -19,6 +20,7 @@
             </thead>
             <tbody>
             <tr>
+                <th>Dispetcher</th>
                 <th>37</th>
                 <th>22</th>
                 <th>15</th>
