@@ -78,7 +78,7 @@
                         <el-tag :type="scope.row.status === 'ACTIVE' ? 'primary' : 'success'">{{ scope.row.status }}</el-tag>
                     </template>
                 </el-table-column>
-                <el-table-column label="Kontakt">
+                <el-table-column label="Kontakt" class="">
                     <template #default="scope">
                         <p class="font-bold text-[#2558b3]">{{ scope.row.drayver }}</p>
                     </template>
