@@ -90,8 +90,8 @@
             <el-table-column label="Rasm" width="66">
                 <template #default="scope">
                     <div class="w-10 h-10 rounded-full overflow-hidden">
-                        <img v-if="scope.$index % 2 === 0" src="@/assets/images/male.png" class="w-full" alt="">
-                        <img v-else src="@/assets/images/female.png" class="w-full" alt="">
+                        <img v-if="scope.row.jinsi === 'Erkak'" src="@/assets/images/employee.png" class="w-full" alt="">
+                        <img v-else src="@/assets/images/employee-female.png" class="w-full" alt="">
                     </div>
                 </template>
             </el-table-column>
@@ -144,11 +144,14 @@
             <el-table-column label="Harakatlar" width="120" fixed="right">
                 <template #default="scope">
                     <div class="flex gap-2 justify-center">
-                        <div
+                        <!--<div
                             @click="onDrawerOpen(scope.row)"
                             class="bg-[#577eff] text-white flex justify-center items-center rounded-md !p-1.5 cursor-pointer hover:bg-blue-400"
                         >
                             <el-icon :size="18"><View /></el-icon>
+                        </div>-->
+                        <div class="bg-[#577eff] text-white flex justify-center items-center rounded-md !p-1.5 cursor-pointer hover:bg-blue-400">
+                            <el-icon :size="18"><Edit /></el-icon>
                         </div>
                         <div class="bg-[#FF4C51] text-white flex justify-center items-center rounded-md !p-1.5 cursor-pointer hover:bg-red-300">
                             <el-icon :size="18"><Delete /></el-icon>
@@ -177,7 +180,7 @@
 
 <script setup>
 import { computed, ref, watch } from 'vue'
-import { Calendar, Delete, PhoneFilled, View } from "@element-plus/icons-vue";
+import {Calendar, Delete, Edit, PhoneFilled, View} from "@element-plus/icons-vue";
 import moment from "moment";
 import EmployeeInfoDrawer from "@/views/employee/EmployeeInfoDrawer.vue";
 
