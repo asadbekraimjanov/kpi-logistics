@@ -84,22 +84,22 @@ const routes = [
                 title: 'Hududlar monitoringi',
                 component: () => import('@/views/reports/MonitoringTerritories.vue')
             },
-            {
-                path: '/reports/routes-statistics',
-                name: 'RoutesStatistics',
-                icon: 'reports',
-                title: 'Marshrutlar hisobotlari',
-                component: () => import('@/views/reports/RoutesStatistics.vue')
-            }
+            // {
+            //     path: '/reports/routes-statistics',
+            //     name: 'RoutesStatistics',
+            //     icon: 'reports',
+            //     title: 'Marshrutlar hisobotlari',
+            //     component: () => import('@/views/reports/RoutesStatistics.vue')
+            // }
         ]
     },
-    {
-        path: '/settings',
-        name: 'Settings',
-        icon: 'settings',
-        title: 'Sozlamalar',
-        component: () => import('@/views/settings/Settings.vue'),
-    }
+    // {
+    //     path: '/settings',
+    //     name: 'Settings',
+    //     icon: 'settings',
+    //     title: 'Sozlamalar',
+    //     component: () => import('@/views/settings/Settings.vue'),
+    // }
 ]
 
 export default routes

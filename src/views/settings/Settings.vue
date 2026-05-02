@@ -1,5 +1,7 @@
 <template>
-    <div>Profil</div>
+    <div class="w-full !p-4">
+
+    </div>
 </template>
 
 <script setup>

@@ -42,12 +42,12 @@
                     <span class="font-normal text-gray-600">{{ employeeData.lavozimi ? employeeData.lavozimi : '-' }}</span>
                 </p>
                 <p class="font-medium text-gray-700 !mt-4 leading-[10px]">
-                    Holati:
-                    <el-tag type="primary" class="font-normal text-gray-600">Active</el-tag>
+                    Ishga kirgan sanasi:
+                    <span class="font-normal text-gray-600">22.04.2026</span>
                 </p>
                 <p class="font-medium text-gray-700 !mt-4 leading-[10px]">
                     Rol:
-                    <span class="font-normal text-gray-600">Admin</span>
+                    <el-tag type="primary" class="font-normal text-gray-600">Admin</el-tag>
                 </p>
                 <p class="font-medium text-gray-700 !mt-4 leading-[10px]">
                     Login:
