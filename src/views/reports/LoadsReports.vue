@@ -1,13 +1,13 @@
 <template>
     <div class="w-full">
         <div class="w-full flex justify-around items-center">
-            <div class="w-1/3">
-                <p class="text-lg font-medium text-center !mb-3 text-gray-800">Foiz samaradorligi Ko'rsatkichi</p>
-                <apexchart type="bar" height="300" :series="series" :options="options" />
+            <div class="w-1/2">
+                <p class="text-lg font-medium text-center !mb-3 text-gray-800">Foiz samaradorligi eng yuqori hudud</p>
+                <apexchart type="bar" height="300" width="700" :series="seriesHigh" :options="optionsHigh" />
             </div>
-            <div>
+            <div class="w-1/2">
                 <p class="text-lg font-medium text-center !mb-3 text-gray-800">Foiz samaradorligi eng past hudud</p>
-<!--                <apexchart type="donut" height="300" :series="seriesGenderChart" :options="genderChartOptions" />-->
+                <apexchart type="bar" height="300" width="700" :series="seriesLow" :options="optionsLow" />
             </div>
         </div>
 
@@ -61,50 +61,83 @@
 import { ref } from "vue"
 
 
-const series = [{
+const seriesHigh = [{
+    name: 'Soni',
     data: [
         {
-            x: 'Samarqand',
+            x: 'Jami yuk',
             y: 20
         },
         {
-            x: 'Toshkent',
+            x: 'Yetkazilgan yuklar',
             y: 7
         },
         {
-            x: 'Buxoro',
+            x: 'Qaytarilgan yuklar',
             y: 3
         },
         {
-            x: 'Farg\'ona',
+            x: 'Jarayondagilar',
             y: 18
         },
         {
-            x: 'Andijon',
+            x: 'Kechikkan',
             y: 34
-        },
-        {
-            x: 'Namangan',
-            y: 8
-        },
-        {
-            x: 'Jizzax',
-            y: 24
         }
     ]
 }]
-
-const options = ref({
+const optionsHigh = ref({
     plotOptions: {
         bar: {
-
+            horizontal: true
         }
     },
+    colors: ['#2b6b8e'],
     chart: {
         type: 'bar',
         toolbar: { show: false }
     }
 })
+
+const seriesLow = [{
+    name: 'Soni',
+    data: [
+        {
+            x: 'Jami yuk',
+            y: 20
+        },
+        {
+            x: 'Yetkazilgan yuklar',
+            y: 7
+        },
+        {
+            x: 'Qaytarilgan yuklar',
+            y: 3
+        },
+        {
+            x: 'Jarayondagilar',
+            y: 18
+        },
+        {
+            x: 'Kechikkan',
+            y: 34
+        }
+    ]
+}]
+const optionsLow = ref({
+    plotOptions: {
+        bar: {
+            horizontal: true
+        }
+    },
+    colors: ['#8e2b3d'],
+    chart: {
+        type: 'bar',
+        toolbar: { show: false }
+    }
+})
+
+
 </script>
 
 <style scoped>
@@ -124,8 +157,4 @@ thead td {
     font-weight: 500;
 }
 
-.shadow-lg {
-    --tw-shadow: 0 0 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-    --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
-    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow); }
 </style>
