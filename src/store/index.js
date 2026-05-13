@@ -2,7 +2,7 @@ import { createStore } from 'vuex'
 
 const store = createStore({
     state: {
-        token: null
+        userData: null
     },
     mutations: {
 
@@ -11,7 +11,7 @@ const store = createStore({
 
     },
     getters: {
-        getToken: (state) => state.token
+        getToken: (state) => state.userData
     }
 })
 

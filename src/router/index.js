@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Login from '@/views/login-page/Login.vue'
 import navigation from "../../navigation.js";
+import store from "@/store/index.js";
+import {ElMessage} from "element-plus";
 
 const routes = [
     {
@@ -29,6 +31,16 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(),
     routes,
+})
+
+router.beforeEach((to) => {
+    const isAuthenticated = !!localStorage.getItem('userData')
+
+    if (!isAuthenticated && to.name !== 'Login') {
+        return { name: 'Login' }
+    }
+
+    return true
 })
 
 export default router

@@ -22,7 +22,7 @@
                         </el-menu-item>
                     </el-menu-item-group>
                 </el-sub-menu>
-                <el-menu-item id="lastmenuitem" v-for="(item, idx) in navigation.filter(e => e.name === 'Settings')" :index="item.path" @click="onMenuChange(item)">
+                <el-menu-item ref="lastMenuItem" id="lastmenuitem" v-for="(item, idx) in navigation.filter(e => e.name === 'Settings')" :index="item.path" @click="onMenuChange(item)">
                     <img :src="`/tabler-icons/${item.icon}.svg`" class="!mr-2" alt="">
                     <template #title>{{ item.title }}</template>
                 </el-menu-item>
@@ -52,10 +52,12 @@ import navigation from "../../navigation.js";
 import {Expand, Fold} from "@element-plus/icons-vue";
 import router from "@/router/index.js";
 import {useRoute} from "vue-router";
+import store from "@/store/index.js";
 
 const route = useRoute()
 
 const isCollapse = ref(true);
+const lastMenuItem = ref(null)
 
 const onMenuChange = (item, child) => {
     if (child) {
@@ -65,14 +67,17 @@ const onMenuChange = (item, child) => {
 
 const onMenuItemsOpen = (index) => {
     if (!isCollapse.value && index === '/reports') {
-        let item = document.getElementById('lastmenuitem')
-        item.style.marginTop = '12.5rem'
+        if (lastMenuItem.value) {
+            lastMenuItem.value.$el.style.marginTop = '12.5rem'
+        }
     }
 }
+
 const onMenuItemsClose = (index) => {
     if (!isCollapse.value && index === '/reports') {
-        let item = document.getElementById('lastmenuitem')
-        item.style.marginTop = '0px'
+        if (lastMenuItem.value) {
+            lastMenuItem.value.$el.style.marginTop = '0px'
+        }
     }
 }
 
