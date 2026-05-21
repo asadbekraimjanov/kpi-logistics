@@ -6,11 +6,11 @@
                      @click="router.push('/dashboard')" alt="" :class="isCollapse ? 'w-10' : 'w-20'">
             </div>
             <el-menu :default-active="$route.path" class="el-menu-vertical-demo" :collapse="isCollapse" router @open="onMenuItemsOpen" @close="onMenuItemsClose">
-                <el-menu-item v-for="(item, idx) in navigation.filter(e => !e.children && e.name !== 'Settings')" :index="item.path" @click="onMenuChange(item)">
+                <el-menu-item v-for="(item, idx) in navigation.filter(e => !e.children && e.name !== 'Settings' && (role !== 'user' || !['Dashboard', 'EmployeeManagement', 'Routes', 'Trucks'].includes(e.name)))" :index="item.path" @click="onMenuChange(item)">
                     <img :src="`/tabler-icons/${item.icon}.svg`" class="!mr-2" alt="">
                     <template #title>{{ item.title }}</template>
                 </el-menu-item>
-                <el-sub-menu v-for="(item, idx) in navigation.filter(e => e.children)" :index="item.path">
+                <el-sub-menu v-if="role && role !== 'user'" v-for="(item, idx) in navigation.filter(e => e.children)" :index="item.path">
                     <template #title>
                         <img :src="`/tabler-icons/${item.icon}.svg`" class="!mr-2" alt="">
                         <span>{{ item.title }}</span>
@@ -58,6 +58,7 @@ const route = useRoute()
 
 const isCollapse = ref(true);
 const lastMenuItem = ref(null)
+const role = ref(null)
 
 const onMenuChange = (item, child) => {
     if (child) {
@@ -82,6 +83,7 @@ const onMenuItemsClose = (index) => {
 }
 
 onMounted(() => {
+    role.value = JSON.parse(localStorage.getItem('userData')).role
 })
 </script>
 

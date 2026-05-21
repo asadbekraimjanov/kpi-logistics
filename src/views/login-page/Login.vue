@@ -52,6 +52,8 @@ const login = async () => {
             await router.push('/main')
         } else ElMessage.warning('Noto\'g\'ri login yoki parol!')
 
+    } catch {
+        ElMessage.error('Ma\'lumot yuklashda xatolik!')
     } finally {
         loading.value = false
     }

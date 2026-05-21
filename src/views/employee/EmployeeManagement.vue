@@ -6,7 +6,7 @@
                     <div class="flex flex-col">
                         <p>Xodimlar soni</p>
                         <p class="text-2xl font-normal">
-                            {{ new Intl.NumberFormat('en-US').format(10000) }}
+                            {{ new Intl.NumberFormat('en-US').format(tableData.length) }}
                             <span class="text-lg font-semibold text-[#577eff]">(100%)</span>
                         </p>
                     </div>
@@ -20,8 +20,8 @@
                     <div class="flex flex-col">
                         <p>Faol xodimlar soni</p>
                         <p class="text-2xl font-normal">
-                            {{ new Intl.NumberFormat('en-US').format(5) }}
-                            <span class="text-lg font-semibold text-green-500">(1%)</span>
+                            {{ new Intl.NumberFormat('en-US').format(tableData.filter(e => e.status === 'ACTIVE').length) }}
+                            <span class="text-lg font-semibold text-green-500">({{ tableData.filter(e => e.status === 'ACTIVE').length/tableData.length*100 }}%)</span>
                         </p>
                     </div>
                     <div class="w-12 h-12 flex justify-center items-center rounded bg-green-100">
@@ -32,10 +32,10 @@
             <el-card class="w-full h-full flex justify-between gap-2">
                 <div class="w-full flex justify-between items-center">
                     <div class="flex flex-col">
-                        <p>Ishga kelganlar soni</p>
+                        <p>Zaxiradagi xodimlar soni</p>
                         <p class="text-2xl font-normal">
-                            {{ new Intl.NumberFormat('en-US').format(1000) }}
-                            <span class="text-lg font-semibold text-[#FFB400]">(60%)</span>
+                            {{ new Intl.NumberFormat('en-US').format(tableData.filter(e => e.status === 'INACTIVE').length) }}
+                            <span class="text-lg font-semibold text-[#FFB400]">({{ tableData.filter(e => e.status === 'INACTIVE').length/tableData.length*100 }}%)</span>
                         </p>
                     </div>
                     <div class="w-12 h-12 flex justify-center items-center rounded bg-[#FFF3D6]">
@@ -48,8 +48,8 @@
                     <div class="flex flex-col">
                         <p>Muammoli/Jarima olganlar</p>
                         <p class="text-2xl font-normal">
-                            {{ new Intl.NumberFormat('en-US').format(5000) }}
-                            <span class="text-lg font-semibold text-[#FF4C51]">(20%)</span>
+                            {{ new Intl.NumberFormat('en-US').format(tableData.filter(e => e.has_disciplinary === 1).length) }}
+                            <span class="text-lg font-semibold text-[#FF4C51]">({{ tableData.filter(e => e.has_disciplinary === 1).length/tableData.length*100 }}%)</span>
                         </p>
                     </div>
                     <div class="w-12 h-12 flex justify-center items-center rounded bg-red-100">
@@ -63,7 +63,7 @@
             <div class="flex gap-4 items-center">
                 <p>Filtr:</p>
                 <el-input v-model="fullNameFilter" class="!w-[200px]" placeholder="F.I.SH" clearable></el-input>
-                <el-input v-model="phoneFilter" class="!w-[200px]" placeholder="Telefon raqami" clearable></el-input>
+                <el-input v-model="phoneFilter" class="!w-[200px]" placeholder="Telefon raqami" clearable />
                 <el-select v-model="positionFilter" placeholder="Lavozim" class="!w-[200px]" filterable clearable>
                     <el-option label="Manager" value="Manager" />
                     <el-option label="Developer" value="Developer" />
@@ -77,10 +77,10 @@
                     <el-option label="Ayol" value="Ayol" />
                 </el-select>
             </div>
-            <el-button type="primary" class="!bg-[#577eff]">Qo'shish</el-button>
+            <el-button @click="dialog.open()" type="primary" class="!bg-[#577eff]">Qo'shish</el-button>
         </div>
 
-        <el-table :data="paginatedTableData" border style="height: calc(100vh - 19rem);">
+        <el-table :data="paginatedTableData" v-loading="loading" border style="height: calc(100vh - 19rem);">
             <el-table-column label="№" header-align="center" width="50">
                 <template #default="scope">
                     {{ (currentPage - 1) * pageSize + scope.$index + 1 }}
@@ -90,23 +90,23 @@
             <el-table-column label="Rasm" width="66">
                 <template #default="scope">
                     <div class="w-10 h-10 rounded-full overflow-hidden">
-                        <img v-if="scope.row.jinsi === 'Erkak'" src="@/assets/images/employee.png" class="w-full" alt="">
+                        <img v-if="scope.row.gender === 'Erkak'" src="@/assets/images/employee.png" class="w-full" alt="">
                         <img v-else src="@/assets/images/employee-female.png" class="w-full" alt="">
                     </div>
                 </template>
             </el-table-column>
 
-            <el-table-column label="F.I.SH" prop="familiyasiIsmiOtasiningIsmi" min-width="170" />
-            <el-table-column label="Tashkilot" prop="tashkilotNomi" min-width="130" />
-            <el-table-column label="Bo'lim" prop="bolimNomi" min-width="130" />
-            <el-table-column label="Lavozim" prop="lavozimi" min-width="130" />
+            <el-table-column label="F.I.SH" prop="full_name" min-width="170" />
+            <el-table-column label="Tashkilot" prop="work_place" min-width="130" />
+            <el-table-column label="Bo'lim" prop="work_brench" min-width="130" />
+            <el-table-column label="Lavozim" prop="position" min-width="130" />
 
             <el-table-column label="Tug'ilgan sana" align="center" min-width="130">
                 <template #default="scope">
                     <div class="flex justify-center">
                         <p class="w-max rounded !px-2 font-medium flex items-center gap-1">
                             <el-icon><Calendar /></el-icon>
-                            {{ moment(scope.row.tugilganSana).format('DD.MM.YYYY') }}
+                            {{ moment(scope.row.birth_date).format('DD.MM.YYYY') }}
                         </p>
                     </div>
                 </template>
@@ -114,28 +114,28 @@
 
             <el-table-column label="Pasport seriya va raqami" min-width="140">
                 <template #default="scope">
-                    {{ scope.row.pasportSeriyasi }} {{ scope.row.pasportRaqami }}
+                    {{ scope.row.passport_series }} {{ scope.row.passport_number }}
                 </template>
             </el-table-column>
 
-            <el-table-column label="JSHSHIR" prop="jismoniyShaxsShaxsiyIdentifikatsiyaRaqami" min-width="150" />
+            <el-table-column label="JSHSHIR" prop="pinfl" min-width="150" />
 
             <el-table-column label="Status" min-width="100" align="center">
                 <template #default="scope">
-                    <el-tag :type="scope.row.status === 'ACTIVE' ? 'primary' : scope.row.status === 'INACTIVE' ? 'danger' : 'warning'">
-                        {{ scope.row.status }}
+                    <el-tag :type="scope.row.status === 'ACTIVE' ? 'primary' : 'warning'">
+                        {{ scope.row.status === 'ACTIVE' ? 'Faol' : 'Zahira' }}
                     </el-tag>
                 </template>
             </el-table-column>
 
-            <el-table-column label="Jinsi" prop="jinsi" width="80" />
+            <el-table-column label="Jinsi" prop="gender" width="80" />
 
             <el-table-column label="Telefon raqami" min-width="160">
                 <template #default="scope">
                     <div class="flex justify-center">
                         <p class="w-max rounded !px-2 font-medium flex items-center gap-1">
                             <el-icon><PhoneFilled /></el-icon>
-                            {{ scope.row.phoneNumber }}
+                            +998 {{ scope.row.phone_number }}
                         </p>
                     </div>
                 </template>
@@ -144,13 +144,13 @@
             <el-table-column label="Harakatlar" width="120" fixed="right">
                 <template #default="scope">
                     <div class="flex gap-2 justify-center">
-                        <!--<div
+                        <div
                             @click="onDrawerOpen(scope.row)"
                             class="bg-[#577eff] text-white flex justify-center items-center rounded-md !p-1.5 cursor-pointer hover:bg-blue-400"
                         >
                             <el-icon :size="18"><View /></el-icon>
-                        </div>-->
-                        <div class="bg-[#577eff] text-white flex justify-center items-center rounded-md !p-1.5 cursor-pointer hover:bg-blue-400">
+                        </div>
+                        <div @click="dialog.open(scope.row)" class="bg-[#577eff] text-white flex justify-center items-center rounded-md !p-1.5 cursor-pointer hover:bg-blue-400">
                             <el-icon :size="18"><Edit /></el-icon>
                         </div>
                         <div class="bg-[#FF4C51] text-white flex justify-center items-center rounded-md !p-1.5 cursor-pointer hover:bg-red-300">
@@ -172,17 +172,21 @@
             />
         </div>
 
-        <el-drawer v-model="drawer" size="64%" :title="rowData.familiyasiIsmiOtasiningIsmi" class="employee-drawer">
+        <el-drawer v-model="drawer" size="64%" :title="rowData.full_name" class="employee-drawer">
             <EmployeeInfoDrawer :employeeData="rowData" />
         </el-drawer>
+        <formDialog @save="save" ref="dialog"/>
     </div>
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue'
+import {computed, onMounted, ref, watch} from 'vue'
 import {Calendar, Delete, Edit, PhoneFilled, View} from "@element-plus/icons-vue";
 import moment from "moment";
 import EmployeeInfoDrawer from "@/views/employee/EmployeeInfoDrawer.vue";
+import axios from "axios";
+import FormDialog from "@/views/employee/formDialog.vue";
+import {ElMessage} from "element-plus";
 
 const fullNameFilter = ref('')
 const phoneFilter = ref('')
@@ -190,76 +194,36 @@ const positionFilter = ref('')
 const genderFilter = ref('')
 
 const drawer = ref(false)
+const dialog = ref(false)
+const loading = ref(false)
 const rowData = ref({})
 
 const currentPage = ref(1)
 const pageSize = ref(10)
 
-const tableData = ref([
-    {
-        tartibRaqami: 1,
-        familiyasiIsmiOtasiningIsmi: "Aliyev Anvar Abdulla o‘g‘li",
-        tashkilotNomi: "UzAuto Motors",
-        bolimNomi: "IT bo‘limi",
-        lavozimi: "Frontend developer",
-        tugilganSana: "1998-03-12",
-        pasportSeriyasi: "AA",
-        pasportRaqami: "1234567",
-        jismoniyShaxsShaxsiyIdentifikatsiyaRaqami: "30102981234567",
-        status: "ACTIVE",
-        jinsi: "Erkak",
-        phoneNumber: "+998500355535"
-    },
-    {
-        tartibRaqami: 2,
-        familiyasiIsmiOtasiningIsmi: "Karimova Dilnoza Shavkat qizi",
-        tashkilotNomi: "Beeline Uzbekistan",
-        bolimNomi: "Marketing",
-        lavozimi: "Mutaxassis",
-        tugilganSana: "1995-07-21",
-        pasportSeriyasi: "AB",
-        pasportRaqami: "7654321",
-        jismoniyShaxsShaxsiyIdentifikatsiyaRaqami: "30507951234567",
-        status: "INACTIVE",
-        jinsi: "Ayol",
-        phoneNumber: "+998500355535"
-    },
-    ...Array.from({ length: 28 }, (_, i) => {
-        const id = i + 3
-        return {
-            tartibRaqami: id,
-            familiyasiIsmiOtasiningIsmi: `Test User ${id}`,
-            tashkilotNomi: ["Artel", "Ucell", "Uztelecom", "IT Park"][id % 4],
-            bolimNomi: ["IT", "HR", "Moliya", "Logistika"][id % 4],
-            lavozimi: ["Manager", "Developer", "Operator", "Analitik"][id % 4],
-            tugilganSana: `199${id % 10}-0${(id % 9) + 1}-1${id % 9}`,
-            pasportSeriyasi: "AA",
-            pasportRaqami: `${1000000 + id}`,
-            jismoniyShaxsShaxsiyIdentifikatsiyaRaqami: `3${id}0${id}981234567`,
-            status: 'PENDING',
-            jinsi: id % 2 === 0 ? "Erkak" : "Ayol",
-            phoneNumber: "+998500355535"
-        }
-    })
-])
+const tableData = ref([])
+
+const save = async () => {
+    await getTableData()
+}
 
 const filteredTableData = computed(() => {
     return tableData.value.filter(item => {
         const matchName =
             !fullNameFilter.value ||
-            item.familiyasiIsmiOtasiningIsmi.toLowerCase().includes(fullNameFilter.value.toLowerCase())
+            item.full_name.toLowerCase().includes(fullNameFilter.value.toLowerCase())
 
         const matchPhone =
             !phoneFilter.value ||
-            item.phoneNumber.toLowerCase().includes(phoneFilter.value.toLowerCase())
+            item.phone_number.toString().includes(phoneFilter.value)
 
         const matchPosition =
             !positionFilter.value ||
-            item.lavozimi === positionFilter.value
+            item.position === positionFilter.value
 
         const matchGender =
             !genderFilter.value ||
-            item.jinsi === genderFilter.value
+            item.gender === genderFilter.value
 
         return matchName && matchPhone && matchPosition && matchGender
     })
@@ -279,6 +243,22 @@ const onDrawerOpen = (row) => {
     rowData.value = row
     drawer.value = true
 }
+
+const getTableData = async () => {
+    loading.value = true
+
+    try {
+        tableData.value = (await axios.get('http://localhost:5555/data')).data
+    } catch {
+        ElMessage.error('Ma\'lumot yuklashda xatolik')
+    } finally {
+        loading.value = false
+    }
+}
+
+onMounted(async () => {
+    await getTableData()
+})
 </script>
 
 <style>

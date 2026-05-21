@@ -37,7 +37,9 @@ router.beforeEach((to) => {
     const isAuthenticated = !!localStorage.getItem('userData')
 
     if (!isAuthenticated && to.name !== 'Login') {
-        return { name: 'Login' }
+        if (JSON.parse(localStorage.getItem('userData')).role === 'user') {
+            return { name: 'Loads' }
+        } else return { name: 'Login' }
     }
 
     return true

@@ -5,3 +5,21 @@
 body {
     overflow: hidden;
 }
+
+.el-dialog {
+    padding: 0;
+}
+
+.el-dialog__body {
+    padding: 20px;
+}
+
+.el-dialog__header {
+    background: #031c6c !important;
+    padding: 10px;
+    box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+}
+
+.el-dialog__header .el-dialog__title {
+    color: white;
+}
