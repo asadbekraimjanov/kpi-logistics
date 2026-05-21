@@ -37,7 +37,13 @@
                     <el-icon v-else @click="isCollapse = !isCollapse" class="cursor-pointer" size="24"><Fold /></el-icon>
                     <p class="text-lg font-semibold uppercase">Ish faoliyati samaradorligini monitoring qilish platformasi</p>
                 </div>
-                <el-avatar class="cursor-pointer"></el-avatar>
+                <el-popover trigger="click">
+                    <template #reference>
+                        <el-avatar class="cursor-pointer"></el-avatar>
+                    </template>
+
+                    <div></div>
+                </el-popover>
             </div>
             <div class="w-full">
                 <router-view />
