@@ -153,7 +153,7 @@
                         <div @click="dialog.open(scope.row)" class="bg-[#577eff] text-white flex justify-center items-center rounded-md !p-1.5 cursor-pointer hover:bg-blue-400">
                             <el-icon :size="18"><Edit /></el-icon>
                         </div>
-                        <div class="bg-[#FF4C51] text-white flex justify-center items-center rounded-md !p-1.5 cursor-pointer hover:bg-red-300">
+                        <div @click="deleteItem(scope.row.id, scope.$index)" class="bg-[#FF4C51] text-white flex justify-center items-center rounded-md !p-1.5 cursor-pointer hover:bg-red-300">
                             <el-icon :size="18"><Delete /></el-icon>
                         </div>
                     </div>
@@ -186,7 +186,7 @@ import moment from "moment";
 import EmployeeInfoDrawer from "@/views/employee/EmployeeInfoDrawer.vue";
 import axios from "axios";
 import FormDialog from "@/views/employee/formDialog.vue";
-import {ElMessage} from "element-plus";
+import {ElMessage, ElMessageBox} from "element-plus";
 
 const fullNameFilter = ref('')
 const phoneFilter = ref('')
@@ -205,6 +205,19 @@ const tableData = ref([])
 
 const save = async () => {
     await getTableData()
+}
+
+const deleteItem = async (id, idx) => {
+    ElMessageBox.confirm(
+        'O\'chirishni tasdiqlaysizmi?',
+        {confirmButtonText: 'Ha', cancelButtonText: 'Yo\'q', type: 'warning',}
+    ).then( async () => {
+        await axios.delete(`http://localhost:5555/data/${id}`)
+        tableData.value.splice(idx, 1)
+        ElMessage.primary('Amal bajarildi')
+    }).catch(() => {
+        ElMessage({type: 'info', message: 'Bekor qilindi',})
+    })
 }
 
 const filteredTableData = computed(() => {

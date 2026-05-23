@@ -1,5 +1,5 @@
 <template>
-    <el-dialog v-model="dialog" @close="close" :title="rowData ? 'Tahrirlash' : 'Qo\'shish'" width="800">
+    <el-dialog v-model="dialog" @close="close" :title="rowId ? 'Tahrirlash' : 'Qo\'shish'" width="800">
         <el-form ref="formRef" :model="formData" :rules="rules" label-position="top">
             <el-row :gutter="20">
                 <el-col :span="12">
@@ -100,7 +100,7 @@ const emit = defineEmits(['save'])
 
 const loading = ref(false)
 const dialog = ref(false)
-const rowData = ref(null)
+const rowId = ref(null)
 const formRef = ref(null)
 const defaultFormData = () => ({
     full_name: null,
@@ -224,7 +224,8 @@ const rules = reactive({
 
 const open = (row) => {
     if (row) {
-        rowData.value = row
+        formData.value = row
+        rowId.value = row.id
     }
     dialog.value = true
 }
@@ -235,11 +236,15 @@ const close = () => {
 }
 
 const save = async () => {
-    formRef['value'].validate(valid => {
+    formRef['value'].validate(async valid => {
         if (valid) {
             loading.value = true
             try {
-                axios.post('http://localhost:5555/data', formData.value)
+                if (rowId.value) {
+                    await axios.put(`http://localhost:5555/data/${rowId.value}`, formData.value)
+                } else {
+                    await axios.post('http://localhost:5555/data', formData.value)
+                }
                 ElMessage.primary('Amal bajarildi')
             } catch {
                 ElMessage.error('Amal bajarilmadi!')

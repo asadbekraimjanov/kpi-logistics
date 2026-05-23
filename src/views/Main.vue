@@ -37,12 +37,23 @@
                     <el-icon v-else @click="isCollapse = !isCollapse" class="cursor-pointer" size="24"><Fold /></el-icon>
                     <p class="text-lg font-semibold uppercase">Ish faoliyati samaradorligini monitoring qilish platformasi</p>
                 </div>
-                <el-popover trigger="click">
+                <el-popover trigger="click" width="440">
                     <template #reference>
-                        <el-avatar class="cursor-pointer"></el-avatar>
+                        <el-avatar class="cursor-pointer" :src="employeeAvatar"></el-avatar>
                     </template>
 
-                    <div></div>
+                    <div class="w-[29.6rem] flex gap-6 p-2">
+                        <el-avatar :src="employeeAvatar" class="w-1/3" :size="80"></el-avatar>
+                        <div class="w-2/3">
+<!--                            <p class="text-black text-[1rem]">{{ userData?.work_place }}</p>-->
+                            <div class="text-black text-[1rem]  flex justify-between items-center !pb-1 !mb-2 !border-b">
+                                <p>Login: {{ userData?.username }}</p>
+                                <el-button :icon="Right" @click="router.push('/login')">Chiqish</el-button>
+                            </div>
+                            <p class="text-black text-[1.1rem]">{{ userData?.full_name }}</p>
+
+                        </div>
+                    </div>
                 </el-popover>
             </div>
             <div class="w-full">
@@ -55,16 +66,18 @@
 <script setup>
 import {onMounted, ref} from "vue";
 import navigation from "../../navigation.js";
-import {Expand, Fold} from "@element-plus/icons-vue";
+import {Expand, Fold, Right} from "@element-plus/icons-vue";
 import router from "@/router/index.js";
 import {useRoute} from "vue-router";
 import store from "@/store/index.js";
+import employeeAvatar from '@/assets/images/employee-avatar.jpg'
 
 const route = useRoute()
 
 const isCollapse = ref(true);
 const lastMenuItem = ref(null)
 const role = ref(null)
+const userData = ref(null)
 
 const onMenuChange = (item, child) => {
     if (child) {
@@ -90,6 +103,7 @@ const onMenuItemsClose = (index) => {
 
 onMounted(() => {
     role.value = JSON.parse(localStorage.getItem('userData')).role
+    userData.value = JSON.parse(localStorage.getItem('userData'))
 })
 </script>
 

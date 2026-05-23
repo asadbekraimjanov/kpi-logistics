@@ -76,7 +76,8 @@
 
 <script setup>
 import {Checked, LocationFilled, Plus, Position, Right, Timer} from "@element-plus/icons-vue";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
+import axios from "axios";
 
 const drawer = ref(false)
 
@@ -84,6 +85,14 @@ const drawer = ref(false)
 const onDrawerOpen = () => {
     drawer.value = true
 }
+
+onMounted(() => {
+    // axios.post('https://kpi-logistics-trucks-default-rtdb.firebaseio.com').then((data) => {
+    //     console.log('data', data)
+    // }).catch((err) => {
+    //     console.log(err)
+    // })
+})
 
 </script>
 

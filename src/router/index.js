@@ -37,18 +37,11 @@ router.beforeEach((to) => {
     const userData = JSON.parse(localStorage.getItem('userData'))
     const isAuthenticated = !!userData
 
-    // Login qilmagan user
     if (!isAuthenticated && to.name !== 'Login') {
         return { name: 'Login', replace: true }
     }
 
-    // role=user faqat Loads va Login ga kira oladi
-    if (
-        isAuthenticated &&
-        userData.role === 'user' &&
-        to.name !== 'Loads' &&
-        to.name !== 'Login'
-    ) {
+    if (isAuthenticated && userData.role === 'user' && to.name !== 'Loads' && to.name !== 'Login') {
         return { name: 'Loads', replace: true }
     }
 
