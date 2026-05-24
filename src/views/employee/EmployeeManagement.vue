@@ -1,7 +1,7 @@
 <template>
     <div class="w-full !p-4">
         <div class="w-full h-max flex justify-between items-center gap-2 !pb-4">
-            <el-card class="w-full h-full flex justify-between gap-2">
+            <el-card v-loading="loading" class="w-full h-full flex justify-between gap-2">
                 <div class="w-full flex justify-between items-center">
                     <div class="flex flex-col">
                         <p>Xodimlar soni</p>
@@ -15,7 +15,7 @@
                     </div>
                 </div>
             </el-card>
-            <el-card class="w-full h-full flex justify-between gap-2">
+            <el-card v-loading="loading" class="w-full h-full flex justify-between gap-2">
                 <div class="w-full flex justify-between items-center">
                     <div class="flex flex-col">
                         <p>Faol xodimlar soni</p>
@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </el-card>
-            <el-card class="w-full h-full flex justify-between gap-2">
+            <el-card v-loading="loading" class="w-full h-full flex justify-between gap-2">
                 <div class="w-full flex justify-between items-center">
                     <div class="flex flex-col">
                         <p>Zaxiradagi xodimlar soni</p>
@@ -43,7 +43,7 @@
                     </div>
                 </div>
             </el-card>
-            <el-card class="w-full h-full flex justify-between gap-2">
+            <el-card v-loading="loading" class="w-full h-full flex justify-between gap-2">
                 <div class="w-full flex justify-between items-center">
                     <div class="flex flex-col">
                         <p>Muammoli/Jarima olganlar</p>
@@ -65,16 +65,16 @@
                 <el-input v-model="fullNameFilter" class="!w-[200px]" placeholder="F.I.SH" clearable></el-input>
                 <el-input v-model="phoneFilter" class="!w-[200px]" placeholder="Telefon raqami" clearable />
                 <el-select v-model="positionFilter" placeholder="Lavozim" class="!w-[200px]" filterable clearable>
-                    <el-option label="Manager" value="Manager" />
-                    <el-option label="Developer" value="Developer" />
-                    <el-option label="Operator" value="Operator" />
-                    <el-option label="Analitik" value="Analitik" />
-                    <el-option label="Frontend developer" value="Frontend developer" />
-                    <el-option label="Mutaxassis" value="Mutaxassis" />
+                    <el-option label="Menejer" value="MANAGER" />
+                    <el-option label="Dasturchi" value="DEVELOPER" />
+                    <el-option label="Operator" value="OPERATOR" />
+                    <el-option label="Analitik" value="ANALITIK" />
+                    <el-option label="Haydovchi" value="DRIVER" />
+                    <el-option label="Mutaxassis" value="SPECIALIST" />
                 </el-select>
                 <el-select v-model="genderFilter" placeholder="Jinsi" class="!w-[200px]" clearable>
-                    <el-option label="Erkak" value="Erkak" />
-                    <el-option label="Ayol" value="Ayol" />
+                    <el-option label="Erkak" value="MALE" />
+                    <el-option label="Ayol" value="FEMALE" />
                 </el-select>
             </div>
             <el-button @click="dialog.open()" type="primary" class="!bg-[#577eff]">Qo'shish</el-button>

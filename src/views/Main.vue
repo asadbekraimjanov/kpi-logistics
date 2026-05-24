@@ -46,7 +46,7 @@
                         <el-avatar :src="employeeAvatar" class="w-1/3" :size="80"></el-avatar>
                         <div class="w-2/3">
 <!--                            <p class="text-black text-[1rem]">{{ userData?.work_place }}</p>-->
-                            <div class="text-black text-[1rem]  flex justify-between items-center !pb-1 !mb-2 !border-b">
+                            <div class="text-black text-[1rem] flex justify-between items-center !pb-2 !mb-2 !border-b !border-gray-400">
                                 <p>Login: {{ userData?.username }}</p>
                                 <el-button :icon="Right" @click="router.push('/login')">Chiqish</el-button>
                             </div>

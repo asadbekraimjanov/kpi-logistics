@@ -19,7 +19,14 @@
                 </el-col>
                 <el-col :span="12">
                     <el-form-item prop="position" label="Lavozim">
-                        <el-input v-model="formData.position" placeholder="Kiriting" clearable />
+                        <el-select v-model="formData.position" placeholder="Kiriting" clearable>
+                            <el-option label="Menejer" value="MANAGER" />
+                            <el-option label="Dasturchi" value="DEVELOPER" />
+                            <el-option label="Operator" value="OPERATOR" />
+                            <el-option label="Analitik" value="ANALITIK" />
+                            <el-option label="Haydovchi" value="DRIVER" />
+                            <el-option label="Mutaxassis" value="SPECIALIST" />
+                        </el-select>
                     </el-form-item>
                 </el-col>
                 <el-col :span="12">

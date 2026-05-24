@@ -48,7 +48,7 @@
                 </div>
             </div>
 
-            <el-button :icon="Plus" type="primary" class="!bg-blue-500">
+            <el-button @click="dialog.open()" :icon="Plus" type="primary" class="!bg-blue-500">
                 Yuk qo'shish
             </el-button>
         </div>
@@ -74,11 +74,7 @@
         </div>
     </div>
 
-    <el-table
-        :data="filteredTableData"
-        :row-style="tableRowStyle"
-        style="height: calc(100vh - 12.6rem);"
-    >
+    <el-table v-loading="loading" :data="filteredTableData" :row-style="tableRowStyle" style="height: calc(100vh - 12.6rem);">
         <el-table-column label="Masofa" align="center" width="100">
             <template #default="scope">
                 <p class="font-bold text-[#2558b3] !pr-2 !border-r !border-gray-300">
@@ -137,14 +133,6 @@
 
         <el-table-column prop="carStatus" label="Yuk mashina holati" class-name="font-medium" width="120"/>
 
-        <el-table-column prop="status" label="Holati" width="100">
-            <template #default="scope">
-                <el-tag :type="scope.row.status === 'ACTIVE' ? 'primary' : 'success'">
-                    {{ scope.row.status }}
-                </el-tag>
-            </template>
-        </el-table-column>
-
         <el-table-column label="Reys vaqti" align="center" min-width="170">
             <template #default="scope">
                 <p class="w-full flex gap-2">
@@ -163,12 +151,20 @@
             </template>
         </el-table-column>
 
-        <el-table-column label="Yuk mashinasi" width="120">
+        <el-table-column label="Yuk mashinasi" width="130">
             <template #default="scope">
                 <div class="flex items-center gap-2">
                     <img src="/tabler-icons/truck.svg" alt="">
-                    <p>{{ scope.row.carType }}</p>
+                    <p>{{ scope.row.carType.name }}</p>
                 </div>
+            </template>
+        </el-table-column>
+
+        <el-table-column prop="status" label="Holati" width="100">
+            <template #default="scope">
+                <el-tag :type="scope.row.status === 'ACTIVE' ? 'primary' : 'success'">
+                    {{ scope.row.status }}
+                </el-tag>
             </template>
         </el-table-column>
 
@@ -184,14 +180,23 @@
             </template>
         </el-table-column>
     </el-table>
+
+    <LoadsDialogComponent @save="save" ref="dialog" />
 </template>
 
 <script setup>
-import {computed, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import moment from "moment";
 import {Delete, Plus, Search} from "@element-plus/icons-vue";
+import LoadsDialogComponent from "@/views/loads/LoadsDialogComponent.vue";
+import TransportDialogComponent from "@/views/transport/TransportDialogComponent.vue";
+import axios from "axios";
+import {ElMessage} from "element-plus";
 
 const filterDateRange = ref([]);
+const trucks = ref([]);
+const loading = ref(false);
+const dialog = ref(null);
 
 const filters = ref({
     distance: '',
@@ -203,44 +208,7 @@ const filters = ref({
     company: ''
 });
 
-const tableData = ref([
-    {
-        id: 1,
-        distance: '230',
-        price: '5000',
-        tax: '200',
-        from: 'Uzbekistan',
-        to: 'New Zealand',
-        carType: 'ISUZU 4',
-        carStatus: 'Full',
-        status: 'ACTIVE',
-        fligthTime: ['12-04-2026', '20-04-2026'],
-        company: 'BVB Freight',
-        weight: '566',
-        contact: 'example@bvbfreight.com'
-    },
-    ...Array.from({length: 19}, (_, i) => {
-        const id = i + 2;
-        return {
-            id,
-            distance: String(100 + id * 15),
-            price: String(3000 + id * 700),
-            tax: String(((id % 5) + 1) * 100),
-            from: ['Uzbekistan', 'Kazakhstan', 'Russia', 'China'][id % 4],
-            to: ['Germany', 'Turkey', 'UAE', 'South Korea'][id % 4],
-            carType: ['ISUZU 3', 'ISUZU 5', 'ISUZU 7', 'ISUZU FVR'][id % 4],
-            carStatus: id % 2 === 0 ? 'Full' : 'Empty',
-            status: ['ACTIVE', 'DONE'][id % 2],
-            fligthTime: [
-                `0${(id % 9) + 1}-04-2026`,
-                `${10 + (id % 10)}-04-2026`
-            ],
-            company: ['BVB Freight', 'Global Cargo', 'Asia Trans', 'LogiX'][id % 4],
-            weight: String(100 + id * 20),
-            contact: `user${id}@logistics.com`
-        };
-    })
-]);
+const tableData = ref([]);
 
 const filteredTableData = computed(() => {
     return tableData.value.filter(item => {
@@ -266,7 +234,7 @@ const filteredTableData = computed(() => {
 
         const matchCarType =
             !filters.value.carType ||
-            item.carType.toLowerCase().includes(filters.value.carType.toLowerCase());
+            item.carType.name.toLowerCase().includes(filters.value.carType.toLowerCase());
 
         const matchCompany =
             !filters.value.company ||
@@ -294,6 +262,36 @@ const filteredTableData = computed(() => {
     });
 });
 
+const getTableData = async () => {
+    loading.value = true
+
+    try {
+        const res = (await axios.get('https://kpi-logistics-trucks-default-rtdb.firebaseio.com/loads.json')).data
+        tableData.value = Object.entries(res).map(([id, value]) => ({id, ...value}))
+    } catch {
+        ElMessage.error('Ma\'lumot yuklashda xatolik')
+    } finally {
+        loading.value = false
+    }
+}
+const getTruckData = async () => {
+    loading.value = true
+
+    try {
+        const res = (await axios.get('https://kpi-logistics-trucks-default-rtdb.firebaseio.com/trucks.json')).data
+        trucks.value = Object.entries(res).map(([id, value]) => ({id, ...value}))
+    } catch {
+        ElMessage.error('Ma\'lumot yuklashda xatolik')
+    } finally {
+        loading.value = false
+    }
+}
+
+const save = async () => {
+    await getTruckData()
+    await getTableData()
+}
+
 const resetFilters = () => {
     filters.value = {
         distance: '',
@@ -313,6 +311,11 @@ const tableRowStyle = ({rowIndex}) => {
     }
     return {backgroundColor: '#f9fafb'};
 };
+
+onMounted(async () =>{
+    await getTruckData()
+    await getTableData()
+})
 </script>
 
 <style scoped>
