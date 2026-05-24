@@ -36,7 +36,6 @@
                 layout="prev, pager, next, total, sizes, jumper"
                 :total="10"
                 :page-sizes="[10, 20, 30, 50]"
-                size="small"
             />
         </div>
     </div>
