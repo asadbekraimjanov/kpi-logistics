@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full relative">
+    <div class="w-full h-[calc(100vh-100px)] overflow-y-auto relative">
         <el-select v-model="currentYear" class="!w-20 !absolute right-0">
             <el-option label="2026" value="2026"/>
         </el-select>
@@ -16,7 +16,7 @@
         </div>
 
         <p class="text-xl font-medium text-center !mb-3 !mt-5 text-gray-800">Moliyaviy hisobotlar</p>
-        <table class="w-full h-full bg-white !border overflow-x-auto">
+        <table class="w-full bg-white !border overflow-x-auto">
             <thead class="bg-gray-100 text-[#3b434e]">
             <tr>
                 <th>Davr</th>

@@ -10,7 +10,7 @@ const routes = [
         path: '/employee-management',
         name: 'EmployeeManagement',
         icon: 'employee-management',
-        title: 'Hodimlar boshqaruvi',
+        title: 'Xodimlar boshqaruvi',
         component: () => import('@/views/employee/EmployeeManagement.vue'),
     },
     // {
@@ -60,7 +60,7 @@ const routes = [
                 path: '/reports/employee-reports',
                 name: 'EmployeeReports',
                 icon: 'reports',
-                title: 'Hodim hisobotlari',
+                title: 'Xodim hisobotlari',
                 component: () => import('@/views/reports/EmployeeReports.vue')
             },
             {

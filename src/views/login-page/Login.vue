@@ -7,7 +7,7 @@
             </div>
             <div class="w-[40%] h-full !pt-24 !px-20 z-50">
                 <p class="text-4xl text-slate-800">Tizimga kirish</p>
-                <p class="!mt-3 text-slate-500">Logistika kompaniyalari uchun ijro intizomi va hodimlar ish faoliyati samaradorligini monitoring qilish platformasi</p>
+                <p class="!mt-3 text-slate-500">Logistika kompaniyalari uchun ijro intizomi va xodimlar ish faoliyati samaradorligini monitoring qilish platformasi</p>
                 <el-form class="!mt-20" :model="formData">
                     <el-form-item label="Email" prop="email" label-position="top">
                         <el-input @keydown.enter="login" class="h-12 bg-slate-500 login-input" v-model="formData.username" type="email" placeholder="Foydalanuvchi logini" clearable />

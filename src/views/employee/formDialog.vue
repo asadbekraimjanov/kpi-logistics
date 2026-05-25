@@ -88,6 +88,11 @@
                         </el-select>
                     </el-form-item>
                 </el-col>
+                <el-col :span="12">
+                    <el-form-item prop="inSystem" label="Tizimda qachondan">
+                        <el-date-picker v-model="formData.inSystem" format="DD.MM.YYYY" value-format="YYYY-MM-DD" class="!w-full" placeholder="Tanlang" clearable />
+                    </el-form-item>
+                </el-col>
             </el-row>
             <div class="w-full flex justify-end items-center">
                 <el-button class="w-30 !bg-[#577eff] !text-white " @click="save" :loading="loading" type="primary">Saqlash</el-button>
@@ -122,7 +127,8 @@ const defaultFormData = () => ({
     gender: null,
     phone_number: null,
     has_encourage: null,
-    has_disciplinary: null
+    has_disciplinary: null,
+    inSystem: null,
 })
 const formData = ref(defaultFormData())
 
@@ -227,6 +233,7 @@ const rules = reactive({
     phone_number: [{required: true, message: 'Мажбурий майдон', trigger: 'blur'}],
     has_encourage: [{required: true, message: 'Мажбурий майдон', trigger: 'blur'}],
     has_disciplinary: [{required: true, message: 'Мажбурий майдон', trigger: 'blur'}],
+    inSystem: [{required: true, message: 'Мажбурий майдон', trigger: 'blur'}],
 })
 
 const open = (row) => {

@@ -1,31 +1,31 @@
 <template>
-    <div class="w-full">
+    <div class="w-full h-[calc(100vh-100px)] !overflow-y-auto">
         <div class="w-full flex justify-around items-center">
-            <div class="w-1/3">
+            <div v-if="employeeData.length" class="w-1/3">
                 <p class="text-center text-lg font-medium">Rag'bat va intizomiy jazo olganlik ko'rsatkichlari</p>
                 <apexchart type="bar" height="300" :series="seriesEmployee" :options="employeeChartOptions" />
             </div>
-            <div>
+            <div v-if="employeeData.length">
                 <p class="text-center text-lg font-medium">Jinsi bo'yicha tahlil</p>
                 <apexchart type="donut" height="300" :series="seriesGenderChart" :options="genderChartOptions" />
             </div>
         </div>
 
-        <p class="text-xl font-medium text-center !mb-3 text-gray-800">Hodim ko'rsatkichlari</p>
-        <table class="w-full h-full bg-white !border overflow-x-auto">
+        <p class="text-xl font-medium text-center !mb-3 text-gray-800">Xodim ko'rsatkichlari</p>
+        <table v-if="employeeData.length" class="w-full bg-white !border">
             <thead class="bg-gray-100 text-[#3b434e]">
             <tr>
                 <th rowspan="2">№</th>
                 <th rowspan="2">Lavozim</th>
-                <th rowspan="2">Hodimlar soni</th>
+                <th rowspan="2">Xodimlar soni</th>
                 <th colspan="4">Shundan</th>
-                <th rowspan="2">Rag'batlantirilgan hodimlar</th>
-                <th rowspan="2">Rag'batlantirilishi kerak bo'lgan hodimlar</th>
-                <th rowspan="2">Intizomiy jazo olgan hodimlar</th>
+                <th rowspan="2">Rag'batlantirilgan xodimlar</th>
+                <th rowspan="2">Rag'batlantirilishi kerak bo'lgan xodimlar</th>
+                <th rowspan="2">Intizomiy jazo olgan xodimlar</th>
             </tr>
             <tr>
-                <th>Erkak hodimlar</th>
-                <th> Ayol hodimlar</th>
+                <th>Erkak xodimlar</th>
+                <th> Ayol xodimlar</th>
                 <th>Topshiriqni o'z vaqtida bajaruvchi</th>
                 <th>O'z vaqtida bajarmayotganlar</th>
             </tr>
@@ -33,74 +33,110 @@
             <tbody>
             <tr>
                 <td>1</td>
-                <td>Dispetcher</td>
-                <td>37</td>
-                <td>22</td>
-                <td>15</td>
+                <td>Menejer</td>
+                <td>{{ employeeData.filter(e => e.position === 'MANAGER').length }}</td>
+                <td>{{ employeeData.filter(e => e.position === 'MANAGER' && e.gender === 'MALE').length }}</td>
+                <td>{{ employeeData.filter(e => e.position === 'MANAGER' && e.gender === 'FEMALE').length }}</td>
                 <td>15</td>
                 <td>6</td>
-                <td>13</td>
-                <td>2</td>
-                <td>1</td>
+                <td>{{ employeeData.filter(e => e.position === 'MANAGER' && e.has_encourage === 1).length }}</td>
+                <td>{{ employeeData.filter(e => e.position === 'MANAGER' && e.has_disciplinary === 0 && (Date.now() - new Date(e.inSystem)) > 1000 * 60 * 60 * 24 * 365 * 2).length }}</td>
+                <td>{{ employeeData.filter(e => e.position === 'MANAGER' && e.has_disciplinary === 1).length }}</td>
             </tr>
             <tr>
                 <td>2</td>
-                <td>Analitik</td>
-                <td>37</td>
-                <td>22</td>
-                <td>15</td>
+                <td>Dasturchi</td>
+                <td>{{ employeeData.filter(e => e.position === 'DEVELOPER').length }}</td>
+                <td>{{ employeeData.filter(e => e.position === 'DEVELOPER' && e.gender === 'MALE').length }}</td>
+                <td>{{ employeeData.filter(e => e.position === 'DEVELOPER' && e.gender === 'FEMALE').length }}</td>
                 <td>15</td>
                 <td>6</td>
-                <td>13</td>
-                <td>2</td>
-                <td>1</td>
+                <td>{{ employeeData.filter(e => e.position === 'DEVELOPER' && e.has_encourage === 1).length }}</td>
+                <td>{{ employeeData.filter(e => e.position === 'DEVELOPER' && e.has_disciplinary === 0 && (Date.now() - new Date(e.inSystem)) > 1000 * 60 * 60 * 24 * 365 * 2).length }}</td>
+                <td>{{ employeeData.filter(e => e.position === 'DEVELOPER' && e.has_disciplinary === 1).length }}</td>
             </tr>
             <tr>
                 <td>3</td>
-                <td>Haydovchi</td>
-                <td>37</td>
-                <td>22</td>
-                <td>15</td>
+                <td>Operator</td>
+                <td>{{ employeeData.filter(e => e.position === 'OPERATOR').length }}</td>
+                <td>{{ employeeData.filter(e => e.position === 'OPERATOR' && e.gender === 'MALE').length }}</td>
+                <td>{{ employeeData.filter(e => e.position === 'OPERATOR' && e.gender === 'FEMALE').length }}</td>
                 <td>15</td>
                 <td>6</td>
-                <td>13</td>
-                <td>2</td>
-                <td>1</td>
+                <td>{{ employeeData.filter(e => e.position === 'OPERATOR' && e.has_encourage === 1).length }}</td>
+                <td>{{ employeeData.filter(e => e.position === 'OPERATOR' && e.has_disciplinary === 0 && (Date.now() - new Date(e.inSystem)) > 1000 * 60 * 60 * 24 * 365 * 2).length }}</td>
+                <td>{{ employeeData.filter(e => e.position === 'OPERATOR' && e.has_disciplinary === 1).length }}</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Analitik</td>
+                <td>{{ employeeData.filter(e => e.position === 'ANALITIK').length }}</td>
+                <td>{{ employeeData.filter(e => e.position === 'ANALITIK' && e.gender === 'MALE').length }}</td>
+                <td>{{ employeeData.filter(e => e.position === 'ANALITIK' && e.gender === 'FEMALE').length }}</td>
+                <td>15</td>
+                <td>6</td>
+                <td>{{ employeeData.filter(e => e.position === 'ANALITIK' && e.has_encourage === 1).length }}</td>
+                <td>{{ employeeData.filter(e => e.position === 'ANALITIK' && e.has_disciplinary === 0 && (Date.now() - new Date(e.inSystem)) > 1000 * 60 * 60 * 24 * 365 * 2).length }}</td>
+                <td>{{ employeeData.filter(e => e.position === 'ANALITIK' && e.has_disciplinary === 1).length }}</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Haydovchi</td>
+                <td>{{ employeeData.filter(e => e.position === 'DRIVER').length }}</td>
+                <td>{{ employeeData.filter(e => e.position === 'DRIVER' && e.gender === 'MALE').length }}</td>
+                <td>{{ employeeData.filter(e => e.position === 'DRIVER' && e.gender === 'FEMALE').length }}</td>
+                <td>15</td>
+                <td>6</td>
+                <td>{{ employeeData.filter(e => e.position === 'DRIVER' && e.has_encourage === 1).length }}</td>
+                <td>{{ employeeData.filter(e => e.position === 'DRIVER' && e.has_disciplinary === 0 && (Date.now() - new Date(e.inSystem)) > 1000 * 60 * 60 * 24 * 365 * 2).length }}</td>
+                <td>{{ employeeData.filter(e => e.position === 'DRIVER' && e.has_disciplinary === 1).length }}</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Mutaxassis</td>
+                <td>{{ employeeData.filter(e => e.position === 'SPECIALIST').length }}</td>
+                <td>{{ employeeData.filter(e => e.position === 'SPECIALIST' && e.gender === 'MALE').length }}</td>
+                <td>{{ employeeData.filter(e => e.position === 'SPECIALIST' && e.gender === 'FEMALE').length }}</td>
+                <td>15</td>
+                <td>6</td>
+                <td>{{ employeeData.filter(e => e.position === 'SPECIALIST' && e.has_encourage === 1).length }}</td>
+                <td>{{ employeeData.filter(e => e.position === 'SPECIALIST' && e.has_disciplinary === 0 && (Date.now() - new Date(e.inSystem)) > 1000 * 60 * 60 * 24 * 365 * 2).length }}</td>
+                <td>{{ employeeData.filter(e => e.position === 'SPECIALIST' && e.has_disciplinary === 1).length }}</td>
             </tr>
             </tbody>
         </table>
 
         <p class="text-xl font-medium text-center !mb-3 !mt-5 text-gray-800">Haydovchi xavf hisobotlari</p>
-        <table class="w-full h-full bg-white !border overflow-x-auto">
+        <table v-if="routesData.length && employeeData.length" class="w-full bg-white !border overflow-x-auto">
             <thead class="bg-gray-100 text-[#3b434e]">
             <tr>
                 <th>Staji</th>
-                <th>Yo‘l harakatini ko‘p buzadigan haydovchilar</th>
+                <th>Jami</th>
                 <th>Marshrutdan ko‘p og‘adiganlar</th>
-                <th>Tezlikni ko'p buzadigan hodimlar</th>
+                <th>Tezlikni ko'p buzadigan xodimlar</th>
                 <th>Haydovchilik guvohnomasi muddati kelganlar</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td>1 yillik</td>
-                <td>7</td>
-                <td>5</td>
-                <td>3</td>
+                <td>1 yilgacha</td>
+                <th class="font-normal">{{ driversOneYear.length }}</th>
+                <td>{{ routesData.filter(r => driversOneYear.some(e => r.driver.id === e.id && r.distance_shot_traveled - r.total_distance > 15)).length }}</td>
+                <td>{{ routesData.filter(r => driversOneYear.some(e => r.driver.id === e.id && moment(r.expectedEndDate).diff(moment(r.endDate), 'days') >= 2)).length }}</td>
                 <td>4</td>
             </tr>
             <tr>
-                <td>2 yillik</td>
-                <td>7</td>
-                <td>5</td>
-                <td>3</td>
+                <td>2 yilgacha</td>
+                <th class="font-normal">{{ driversTwoYear.length }}</th>
+                <td>{{ routesData.filter(r => driversTwoYear.some(e => r.driver.id === e.id && r.distance_shot_traveled - r.total_distance > 15)).length }}</td>
+                <td>{{ routesData.filter(r => driversTwoYear.some(e => r.driver.id === e.id && moment(r.expectedEndDate).diff(moment(r.endDate), 'days') >= 2)).length }}</td>
                 <td>4</td>
             </tr>
             <tr>
-                <td>3 yildan ko'p</td>
-                <td>7</td>
-                <td>5</td>
-                <td>3</td>
+                <td>3 yil va undan ko'p</td>
+                <th class="font-normal">{{ driversThreeYear.length }}</th>
+                <td>{{ routesData.filter(r => driversThreeYear.some(e => r.driver.id === e.id && r.distance_shot_traveled - r.total_distance > 15)).length }}</td>
+                <td>{{ routesData.filter(r => driversThreeYear.some(e => r.driver.id === e.id && moment(r.expectedEndDate).diff(moment(r.endDate), 'days') >= 2)).length }}</td>
                 <td>4</td>
             </tr>
             </tbody>
@@ -109,9 +145,19 @@
 </template>
 
 <script setup>
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
+import axios from "axios";
+import {ElMessage} from "element-plus";
+import moment from "moment";
 
-const seriesGenderChart = ref([22, 15])
+const employeeData = ref([])
+const routesData = ref([])
+const driversOneYear = ref([])
+const driversTwoYear = ref([])
+const driversThreeYear = ref([])
+const loading = ref(false)
+
+const seriesGenderChart = ref([])
 const genderChartOptions = ref({
     labels: ['Erkak', 'Ayol'],
 
@@ -194,24 +240,23 @@ const genderChartOptions = ref({
 
 const seriesEmployee = ref([
     {
-        name: 'Hodimlar',
+        name: 'Xodimlar',
         data: [
             {
-                x: 'Rag\'batlantirilgan hodimlar',
-                y: 13
+                x: 'Rag\'batlantirilgan xodimlar',
+                y: 0
             },
             {
-                x: ['Rag\'batlantirilishi kerak', 'bo\'lgan hodimlar'],
-                y: 3,
+                x: ['Rag\'batlantirilishi kerak', 'bo\'lgan xodimlar'],
+                y: 0,
             },
             {
-                x: 'Intizomiy jazo olgan hodimlar',
-                y: 2
+                x: 'Intizomiy jazo olgan xodimlar',
+                y: 0
             }
         ]
     }
 ])
-
 const employeeChartOptions = ref({
     chart: {
         type: 'bar',
@@ -230,6 +275,43 @@ const employeeChartOptions = ref({
     }
 })
 
+const getEmployeeData = async () => {
+    loading.value = true
+
+    try {
+        employeeData.value = (await axios.get('http://localhost:5555/data')).data
+        seriesGenderChart.value[0] = employeeData.value.filter(e => e.gender === 'MALE').length
+        seriesGenderChart.value[1] = employeeData.value.filter(e => e.gender === 'FEMALE').length
+        seriesEmployee.value[0].data[0].y = employeeData.value.filter(e => e.has_encourage === 1).length
+        seriesEmployee.value[0].data[1].y = employeeData.value.filter(e => (Date.now() - new Date(e.inSystem)) > 1000 * 60 * 60 * 24 * 365 * 2 && e.has_disciplinary === 0).length
+        seriesEmployee.value[0].data[2].y = employeeData.value.filter(e => e.has_disciplinary === 1).length
+    } catch {
+        ElMessage.error('Xodimlarni yuklashda xatolik')
+    } finally {
+        loading.value = false
+    }
+}
+
+const getRoutesData = async () => {
+    loading.value = true
+
+    try {
+        const res = (await axios.get('https://kpi-logistics-trucks-default-rtdb.firebaseio.com/routes.json')).data
+        routesData.value = Object.entries(res).map(([id, value]) => ({id, ...value}))
+    } catch {
+        ElMessage.error('Marshrutlarni yuklashda xatolik')
+    } finally {
+        loading.value = false
+    }
+}
+
+onMounted(async () => {
+    await getEmployeeData()
+    await getRoutesData()
+    driversOneYear.value = employeeData.value.filter(e => e.position === 'DRIVER' && moment().diff(moment(e.inSystem), 'years') < 1)
+    driversTwoYear.value = employeeData.value.filter(e => e.position === 'DRIVER' && moment().diff(moment(e.inSystem), 'years') >= 1 && moment().diff(moment(e.inSystem), 'years') < 2)
+    driversThreeYear.value = employeeData.value.filter(e => e.position === 'DRIVER' && moment().diff(moment(e.inSystem), 'years') >= 2)
+})
 </script>
 
 <style scoped>

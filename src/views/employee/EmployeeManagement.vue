@@ -21,7 +21,7 @@
                         <p>Faol xodimlar soni</p>
                         <p class="text-2xl font-normal">
                             {{ new Intl.NumberFormat('en-US').format(tableData.filter(e => e.status === 'ACTIVE').length) }}
-                            <span class="text-lg font-semibold text-green-500">({{ tableData.filter(e => e.status === 'ACTIVE').length/tableData.length*100 }}%)</span>
+                            <span class="text-lg font-semibold text-green-500">({{ (tableData.filter(e => e.status === 'ACTIVE').length/tableData.length*100).toFixed(1) }}%)</span>
                         </p>
                     </div>
                     <div class="w-12 h-12 flex justify-center items-center rounded bg-green-100">
@@ -35,7 +35,7 @@
                         <p>Zaxiradagi xodimlar soni</p>
                         <p class="text-2xl font-normal">
                             {{ new Intl.NumberFormat('en-US').format(tableData.filter(e => e.status === 'INACTIVE').length) }}
-                            <span class="text-lg font-semibold text-[#FFB400]">({{ tableData.filter(e => e.status === 'INACTIVE').length/tableData.length*100 }}%)</span>
+                            <span class="text-lg font-semibold text-[#FFB400]">({{ (tableData.filter(e => e.status === 'INACTIVE').length/tableData.length*100).toFixed(1) }}%)</span>
                         </p>
                     </div>
                     <div class="w-12 h-12 flex justify-center items-center rounded bg-[#FFF3D6]">
@@ -49,7 +49,7 @@
                         <p>Muammoli/Jarima olganlar</p>
                         <p class="text-2xl font-normal">
                             {{ new Intl.NumberFormat('en-US').format(tableData.filter(e => e.has_disciplinary === 1).length) }}
-                            <span class="text-lg font-semibold text-[#FF4C51]">({{ tableData.filter(e => e.has_disciplinary === 1).length/tableData.length*100 }}%)</span>
+                            <span class="text-lg font-semibold text-[#FF4C51]">({{ (tableData.filter(e => e.has_disciplinary === 1).length/tableData.length*100).toFixed(1) }}%)</span>
                         </p>
                     </div>
                     <div class="w-12 h-12 flex justify-center items-center rounded bg-red-100">
@@ -90,16 +90,22 @@
             <el-table-column label="Rasm" width="66">
                 <template #default="scope">
                     <div class="w-10 h-10 rounded-full overflow-hidden">
-                        <img v-if="scope.row.gender === 'Erkak'" src="@/assets/images/employee.png" class="w-full" alt="">
-                        <img v-else src="@/assets/images/employee-female.png" class="w-full" alt="">
+                        <img v-if="scope.row.gender === 'FEMALE'" src="@/assets/images/employee-female.png" class="w-full" alt="">
+                        <img v-else src="@/assets/images/employee.png" class="w-full" alt="">
                     </div>
                 </template>
             </el-table-column>
 
             <el-table-column label="F.I.SH" prop="full_name" min-width="170" />
             <el-table-column label="Tashkilot" prop="work_place" min-width="130" />
+
             <el-table-column label="Bo'lim" prop="work_brench" min-width="130" />
             <el-table-column label="Lavozim" prop="position" min-width="130" />
+            <el-table-column label="Tizimda qachondan" min-width="120" sortable>
+                <template #default="scope">
+                    {{ scope.row.inSystem ? moment(scope.row.inSystem).format('DD.MM.YYYY') : '' }}
+                </template>
+            </el-table-column>
 
             <el-table-column label="Tug'ilgan sana" align="center" min-width="130">
                 <template #default="scope">
@@ -144,12 +150,9 @@
             <el-table-column label="Harakatlar" width="120" fixed="right">
                 <template #default="scope">
                     <div class="flex gap-2 justify-center">
-                        <div
-                            @click="onDrawerOpen(scope.row)"
-                            class="bg-[#577eff] text-white flex justify-center items-center rounded-md !p-1.5 cursor-pointer hover:bg-blue-400"
-                        >
+                        <!--<div @click="onDrawerOpen(scope.row)" class="bg-[#577eff] text-white flex justify-center items-center rounded-md !p-1.5 cursor-pointer hover:bg-blue-400">
                             <el-icon :size="18"><View /></el-icon>
-                        </div>
+                        </div>-->
                         <div @click="dialog.open(scope.row)" class="bg-[#577eff] text-white flex justify-center items-center rounded-md !p-1.5 cursor-pointer hover:bg-blue-400">
                             <el-icon :size="18"><Edit /></el-icon>
                         </div>

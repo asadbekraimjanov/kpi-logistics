@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full">
+    <div class="w-full h-[calc(100vh-100px)] overflow-y-auto">
         <div class="w-full flex justify-around items-center">
             <div class="w-1/2">
                 <p class="text-lg font-medium text-center !mb-3 text-gray-800">Foiz samaradorligi eng yuqori hudud</p>
@@ -12,7 +12,7 @@
         </div>
 
         <p class="text-xl font-medium text-center !mb-3 !mt-5 text-gray-800">Yuklar hisobotlari (Hududlar kesimida)</p>
-        <table class="w-full h-full bg-white !border overflow-x-auto">
+        <table class="w-full bg-white !border overflow-x-auto">
             <thead class="bg-gray-100 text-[#3b434e]">
             <tr>
                 <th>Hudud</th>
