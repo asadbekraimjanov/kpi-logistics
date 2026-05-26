@@ -1,6 +1,6 @@
 <template>
     <div class="!p-4">
-        <div class="w-full flex justify-between !border-b !border-gray-300 !pb-2 !mb-4">
+        <div class="w-full flex justify-between !border-b !border-gray-300 !pb-2">
             <div>
                 <p class="text-xl font-medium text-gray-700">Jami:
                     <span class="text-[#2558b3] font-semibold">{{ tableData.length }}</span>
@@ -9,7 +9,7 @@
             <el-button @click="dialog.open()" class="!bg-[#2558b3] !border-none hover:!bg-blue-500 !text-white" :icon="Plus">Qo'shish</el-button>
         </div>
         <el-scrollbar v-loading="loading" style="height: calc(100vh - 190px)">
-            <div class="w-full flex gap-3 flex-wrap justify-center">
+            <div class="w-full flex gap-3 flex-wrap justify-center !pt-4">
                 <el-card v-for="item in tableData" class="w-[380px] !bg-blue-50 !mb-1 hover:!shadow-md hover:-translate-y-1.5 cursor-pointer">
                     <div class="w-full h-full flex justify-between !border-l-2 !border-l-[#2558b3]">
                         <div class="w-1/3">

@@ -6,7 +6,7 @@
                     <el-form-item label="Yuk" prop="load">
                         <el-select v-model="load" @change="onLoadSelected" placeholder="Tanlang" value-key="id">
                             <el-option v-for="item in loads" :value="item">
-                                <div class="w-full flex justify-between">
+                                <div class="w-[500px] flex justify-between">
                                     <p>{{ item.from }} -> {{ item.to }}</p>
                                     <p>{{ item.weight }} kg ({{ moment(item.startDate).format('DD.MM.YYYY') }})</p>
                                 </div>
