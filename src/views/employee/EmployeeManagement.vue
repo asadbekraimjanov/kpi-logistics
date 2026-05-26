@@ -101,7 +101,7 @@
 
             <el-table-column label="Bo'lim" prop="work_brench" min-width="130" />
             <el-table-column label="Lavozim" prop="position" min-width="130" />
-            <el-table-column label="Tizimda qachondan" min-width="120" sortable>
+            <el-table-column label="Tizimda qachondan" min-width="120">
                 <template #default="scope">
                     {{ scope.row.inSystem ? moment(scope.row.inSystem).format('DD.MM.YYYY') : '' }}
                 </template>

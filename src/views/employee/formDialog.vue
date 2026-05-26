@@ -89,8 +89,23 @@
                     </el-form-item>
                 </el-col>
                 <el-col :span="12">
+                    <el-form-item prop="total_tasks" label="Barcha topshiriqlar">
+                        <el-input v-model="formData.total_tasks" placeholder="Kiriting" type="number" clearable />
+                    </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                    <el-form-item prop="completed_tasks" label="Bajarilgan topshiriqlar">
+                        <el-input v-model="formData.completed_tasks" placeholder="Kiriting" type="number" clearable />
+                    </el-form-item>
+                </el-col>
+                <el-col :span="12">
                     <el-form-item prop="inSystem" label="Tizimda qachondan">
                         <el-date-picker v-model="formData.inSystem" format="DD.MM.YYYY" value-format="YYYY-MM-DD" class="!w-full" placeholder="Tanlang" clearable />
+                    </el-form-item>
+                </el-col>
+                <el-col :span="12" v-if="formData.position === 'DRIVER'">
+                    <el-form-item prop="licence_end_date" label="Haydovchilik guvohnomasi tugash sanasi">
+                        <el-date-picker v-model="formData.licence_end_date" format="DD.MM.YYYY" value-format="YYYY-MM-DD" class="!w-full" placeholder="Tanlang" clearable />
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -129,6 +144,9 @@ const defaultFormData = () => ({
     has_encourage: null,
     has_disciplinary: null,
     inSystem: null,
+    licence_end_date: null,
+    total_tasks: null,
+    completed_tasks: null,
 })
 const formData = ref(defaultFormData())
 
@@ -234,6 +252,9 @@ const rules = reactive({
     has_encourage: [{required: true, message: 'Мажбурий майдон', trigger: 'blur'}],
     has_disciplinary: [{required: true, message: 'Мажбурий майдон', trigger: 'blur'}],
     inSystem: [{required: true, message: 'Мажбурий майдон', trigger: 'blur'}],
+    licence_end_date: [{required: true, message: 'Мажбурий майдон', trigger: 'blur'}],
+    total_tasks: [{required: true, message: 'Мажбурий майдон', trigger: 'blur'}],
+    completed_tasks: [{required: true, message: 'Мажбурий майдон', trigger: 'blur'}],
 })
 
 const open = (row) => {

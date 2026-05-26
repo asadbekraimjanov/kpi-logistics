@@ -25,7 +25,7 @@
             </tr>
             <tr>
                 <th>Erkak xodimlar</th>
-                <th> Ayol xodimlar</th>
+                <th>Ayol xodimlar</th>
                 <th>Topshiriqni o'z vaqtida bajaruvchi</th>
                 <th>O'z vaqtida bajarmayotganlar</th>
             </tr>
@@ -34,74 +34,170 @@
             <tr>
                 <td>1</td>
                 <td>Menejer</td>
-                <td>{{ employeeData.filter(e => e.position === 'MANAGER').length }}</td>
-                <td>{{ employeeData.filter(e => e.position === 'MANAGER' && e.gender === 'MALE').length }}</td>
-                <td>{{ employeeData.filter(e => e.position === 'MANAGER' && e.gender === 'FEMALE').length }}</td>
-                <td>15</td>
-                <td>6</td>
-                <td>{{ employeeData.filter(e => e.position === 'MANAGER' && e.has_encourage === 1).length }}</td>
-                <td>{{ employeeData.filter(e => e.position === 'MANAGER' && e.has_disciplinary === 0 && (Date.now() - new Date(e.inSystem)) > 1000 * 60 * 60 * 24 * 365 * 2).length }}</td>
-                <td>{{ employeeData.filter(e => e.position === 'MANAGER' && e.has_disciplinary === 1).length }}</td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'MANAGER'))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'MANAGER').length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'MANAGER' && e.gender === 'MALE'))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'MANAGER' && e.gender === 'MALE').length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'MANAGER' && e.gender === 'FEMALE'))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'MANAGER' && e.gender === 'FEMALE').length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'MANAGER' && e.completed_tasks/e.total_tasks*100 >= 95 ))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'MANAGER' && e.completed_tasks/e.total_tasks*100 >= 95 ).length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'MANAGER' && e.completed_tasks/e.total_tasks*100 < 95 ))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'MANAGER' && e.completed_tasks/e.total_tasks*100 < 95 ).length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'MANAGER' && e.has_encourage === 1))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'MANAGER' && e.has_encourage === 1).length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'MANAGER' && e.has_disciplinary === 0 && (Date.now() - new Date(e.inSystem)) > 1000 * 60 * 60 * 24 * 365 * 2))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'MANAGER' && e.has_disciplinary === 0 && (Date.now() - new Date(e.inSystem)) > 1000 * 60 * 60 * 24 * 365 * 2).length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'MANAGER' && e.has_disciplinary === 1))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'MANAGER' && e.has_disciplinary === 1).length }}
+                </td>
             </tr>
             <tr>
                 <td>2</td>
                 <td>Dasturchi</td>
-                <td>{{ employeeData.filter(e => e.position === 'DEVELOPER').length }}</td>
-                <td>{{ employeeData.filter(e => e.position === 'DEVELOPER' && e.gender === 'MALE').length }}</td>
-                <td>{{ employeeData.filter(e => e.position === 'DEVELOPER' && e.gender === 'FEMALE').length }}</td>
-                <td>15</td>
-                <td>6</td>
-                <td>{{ employeeData.filter(e => e.position === 'DEVELOPER' && e.has_encourage === 1).length }}</td>
-                <td>{{ employeeData.filter(e => e.position === 'DEVELOPER' && e.has_disciplinary === 0 && (Date.now() - new Date(e.inSystem)) > 1000 * 60 * 60 * 24 * 365 * 2).length }}</td>
-                <td>{{ employeeData.filter(e => e.position === 'DEVELOPER' && e.has_disciplinary === 1).length }}</td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'DEVELOPER'))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'DEVELOPER').length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'DEVELOPER' && e.gender === 'MALE'))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'DEVELOPER' && e.gender === 'MALE').length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'DEVELOPER' && e.gender === 'FEMALE'))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'DEVELOPER' && e.gender === 'FEMALE').length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'DEVELOPER' && e.completed_tasks/e.total_tasks*100 >= 95 ))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'DEVELOPER' && e.completed_tasks/e.total_tasks*100 >= 95 ).length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'DEVELOPER' && e.completed_tasks/e.total_tasks*100 < 95 ))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'DEVELOPER' && e.completed_tasks/e.total_tasks*100 < 95 ).length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'DEVELOPER' && e.has_encourage === 1))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'DEVELOPER' && e.has_encourage === 1).length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'DEVELOPER' && e.has_disciplinary === 0 && (Date.now() - new Date(e.inSystem)) > 1000 * 60 * 60 * 24 * 365 * 2))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'DEVELOPER' && e.has_disciplinary === 0 && (Date.now() - new Date(e.inSystem)) > 1000 * 60 * 60 * 24 * 365 * 2).length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'DEVELOPER' && e.has_disciplinary === 1))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'DEVELOPER' && e.has_disciplinary === 1).length }}
+                </td>
             </tr>
             <tr>
                 <td>3</td>
                 <td>Operator</td>
-                <td>{{ employeeData.filter(e => e.position === 'OPERATOR').length }}</td>
-                <td>{{ employeeData.filter(e => e.position === 'OPERATOR' && e.gender === 'MALE').length }}</td>
-                <td>{{ employeeData.filter(e => e.position === 'OPERATOR' && e.gender === 'FEMALE').length }}</td>
-                <td>15</td>
-                <td>6</td>
-                <td>{{ employeeData.filter(e => e.position === 'OPERATOR' && e.has_encourage === 1).length }}</td>
-                <td>{{ employeeData.filter(e => e.position === 'OPERATOR' && e.has_disciplinary === 0 && (Date.now() - new Date(e.inSystem)) > 1000 * 60 * 60 * 24 * 365 * 2).length }}</td>
-                <td>{{ employeeData.filter(e => e.position === 'OPERATOR' && e.has_disciplinary === 1).length }}</td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'OPERATOR'))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'OPERATOR').length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'OPERATOR' && e.gender === 'MALE'))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'OPERATOR' && e.gender === 'MALE').length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'OPERATOR' && e.gender === 'FEMALE'))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'OPERATOR' && e.gender === 'FEMALE').length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'OPERATOR' && e.completed_tasks/e.total_tasks*100 >= 95 ))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'OPERATOR' && e.completed_tasks/e.total_tasks*100 >= 95 ).length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'OPERATOR' && e.completed_tasks/e.total_tasks*100 < 95 ))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'OPERATOR' && e.completed_tasks/e.total_tasks*100 < 95 ).length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'OPERATOR' && e.has_encourage === 1))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'OPERATOR' && e.has_encourage === 1).length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'OPERATOR' && e.has_disciplinary === 0 && (Date.now() - new Date(e.inSystem)) > 1000 * 60 * 60 * 24 * 365 * 2))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'OPERATOR' && e.has_disciplinary === 0 && (Date.now() - new Date(e.inSystem)) > 1000 * 60 * 60 * 24 * 365 * 2).length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'OPERATOR' && e.has_disciplinary === 1))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'OPERATOR' && e.has_disciplinary === 1).length }}
+                </td>
             </tr>
             <tr>
                 <td>4</td>
                 <td>Analitik</td>
-                <td>{{ employeeData.filter(e => e.position === 'ANALITIK').length }}</td>
-                <td>{{ employeeData.filter(e => e.position === 'ANALITIK' && e.gender === 'MALE').length }}</td>
-                <td>{{ employeeData.filter(e => e.position === 'ANALITIK' && e.gender === 'FEMALE').length }}</td>
-                <td>15</td>
-                <td>6</td>
-                <td>{{ employeeData.filter(e => e.position === 'ANALITIK' && e.has_encourage === 1).length }}</td>
-                <td>{{ employeeData.filter(e => e.position === 'ANALITIK' && e.has_disciplinary === 0 && (Date.now() - new Date(e.inSystem)) > 1000 * 60 * 60 * 24 * 365 * 2).length }}</td>
-                <td>{{ employeeData.filter(e => e.position === 'ANALITIK' && e.has_disciplinary === 1).length }}</td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'ANALITIK'))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'ANALITIK').length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'ANALITIK' && e.gender === 'MALE'))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'ANALITIK' && e.gender === 'MALE').length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'ANALITIK' && e.gender === 'FEMALE'))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'ANALITIK' && e.gender === 'FEMALE').length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'ANALITIK' && e.completed_tasks/e.total_tasks*100 >= 95 ))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'ANALITIK' && e.completed_tasks/e.total_tasks*100 >= 95 ).length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'ANALITIK' && e.completed_tasks/e.total_tasks*100 < 95 ))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'ANALITIK' && e.completed_tasks/e.total_tasks*100 < 95 ).length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'ANALITIK' && e.has_encourage === 1))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'ANALITIK' && e.has_encourage === 1).length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'ANALITIK' && e.has_disciplinary === 0 && (Date.now() - new Date(e.inSystem)) > 1000 * 60 * 60 * 24 * 365 * 2))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'ANALITIK' && e.has_disciplinary === 0 && (Date.now() - new Date(e.inSystem)) > 1000 * 60 * 60 * 24 * 365 * 2).length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'ANALITIK' && e.has_disciplinary === 1))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'ANALITIK' && e.has_disciplinary === 1).length }}
+                </td>
             </tr>
             <tr>
                 <td>5</td>
                 <td>Haydovchi</td>
-                <td>{{ employeeData.filter(e => e.position === 'DRIVER').length }}</td>
-                <td>{{ employeeData.filter(e => e.position === 'DRIVER' && e.gender === 'MALE').length }}</td>
-                <td>{{ employeeData.filter(e => e.position === 'DRIVER' && e.gender === 'FEMALE').length }}</td>
-                <td>15</td>
-                <td>6</td>
-                <td>{{ employeeData.filter(e => e.position === 'DRIVER' && e.has_encourage === 1).length }}</td>
-                <td>{{ employeeData.filter(e => e.position === 'DRIVER' && e.has_disciplinary === 0 && (Date.now() - new Date(e.inSystem)) > 1000 * 60 * 60 * 24 * 365 * 2).length }}</td>
-                <td>{{ employeeData.filter(e => e.position === 'DRIVER' && e.has_disciplinary === 1).length }}</td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'DRIVER'))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'DRIVER').length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'DRIVER' && e.gender === 'MALE'))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'DRIVER' && e.gender === 'MALE').length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'DRIVER' && e.gender === 'FEMALE'))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'DRIVER' && e.gender === 'FEMALE').length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'DRIVER' && e.completed_tasks/e.total_tasks*100 >= 95 ))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'DRIVER' && e.completed_tasks/e.total_tasks*100 >= 95 ).length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'DRIVER' && e.completed_tasks/e.total_tasks*100 < 95 ))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'DRIVER' && e.completed_tasks/e.total_tasks*100 < 95 ).length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'DRIVER' && e.has_encourage === 1))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'DRIVER' && e.has_encourage === 1).length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'DRIVER' && e.has_disciplinary === 0 && (Date.now() - new Date(e.inSystem)) > 1000 * 60 * 60 * 24 * 365 * 2))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'DRIVER' && e.has_disciplinary === 0 && (Date.now() - new Date(e.inSystem)) > 1000 * 60 * 60 * 24 * 365 * 2).length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'DRIVER' && e.has_disciplinary === 1))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'DRIVER' && e.has_disciplinary === 1).length }}
+                </td>
             </tr>
             <tr>
                 <td>6</td>
                 <td>Mutaxassis</td>
-                <td>{{ employeeData.filter(e => e.position === 'SPECIALIST').length }}</td>
-                <td>{{ employeeData.filter(e => e.position === 'SPECIALIST' && e.gender === 'MALE').length }}</td>
-                <td>{{ employeeData.filter(e => e.position === 'SPECIALIST' && e.gender === 'FEMALE').length }}</td>
-                <td>15</td>
-                <td>6</td>
-                <td>{{ employeeData.filter(e => e.position === 'SPECIALIST' && e.has_encourage === 1).length }}</td>
-                <td>{{ employeeData.filter(e => e.position === 'SPECIALIST' && e.has_disciplinary === 0 && (Date.now() - new Date(e.inSystem)) > 1000 * 60 * 60 * 24 * 365 * 2).length }}</td>
-                <td>{{ employeeData.filter(e => e.position === 'SPECIALIST' && e.has_disciplinary === 1).length }}</td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'SPECIALIST'))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'SPECIALIST').length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'SPECIALIST' && e.gender === 'MALE'))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'SPECIALIST' && e.gender === 'MALE').length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'SPECIALIST' && e.gender === 'FEMALE'))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'SPECIALIST' && e.gender === 'FEMALE').length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'SPECIALIST' && e.completed_tasks/e.total_tasks*100 >= 95 ))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'SPECIALIST' && e.completed_tasks/e.total_tasks*100 >= 95 ).length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'SPECIALIST' && e.completed_tasks/e.total_tasks*100 < 95 ))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'SPECIALIST' && e.completed_tasks/e.total_tasks*100 < 95 ).length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'SPECIALIST' && e.has_encourage === 1))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'SPECIALIST' && e.has_encourage === 1).length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'SPECIALIST' && e.has_disciplinary === 0 && (Date.now() - new Date(e.inSystem)) > 1000 * 60 * 60 * 24 * 365 * 2))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'SPECIALIST' && e.has_disciplinary === 0 && (Date.now() - new Date(e.inSystem)) > 1000 * 60 * 60 * 24 * 365 * 2).length }}
+                </td>
+                <td @click="employeesInfoRef.open(employeeData.filter(e => e.position === 'SPECIALIST' && e.has_disciplinary === 1))" class="cursor-pointer hover:bg-blue-100">
+                    {{ employeeData.filter(e => e.position === 'SPECIALIST' && e.has_disciplinary === 1).length }}
+                </td>
             </tr>
             </tbody>
         </table>
@@ -120,28 +216,51 @@
             <tbody>
             <tr>
                 <td>1 yilgacha</td>
-                <th class="font-normal">{{ driversOneYear.length }}</th>
-                <td>{{ routesData.filter(r => driversOneYear.some(e => r.driver.id === e.id && r.distance_shot_traveled - r.total_distance > 15)).length }}</td>
-                <td>{{ routesData.filter(r => driversOneYear.some(e => r.driver.id === e.id && moment(r.expectedEndDate).diff(moment(r.endDate), 'days') >= 2)).length }}</td>
-                <td>4</td>
+                <td @click="employeesInfoRef.open(driversOneYear)" class="font-normal cursor-pointer hover:bg-blue-100">{{ driversOneYear.length }}</td>
+                <td @click="driversInfoRef.open(routesData.filter(r => driversOneYear.some(e => r.driver.id === e.id && r.distance_shot_traveled - r.total_distance > 15)))" class="cursor-pointer hover:bg-blue-100">
+                    {{ routesData.filter(r => driversOneYear.some(e => r.driver.id === e.id && r.distance_shot_traveled - r.total_distance > 15)).length }}
+                </td>
+                <td @click="driversInfoRef.open(routesData.filter(r => driversOneYear.some(e => r.driver.id === e.id && moment(r.expectedEndDate).diff(moment(r.endDate), 'days') >= 2)))" class="cursor-pointer hover:bg-blue-100">
+                    {{ routesData.filter(r => driversOneYear.some(e => r.driver.id === e.id && moment(r.expectedEndDate).diff(moment(r.endDate), 'days') >= 2)).length }}
+                </td>
+                <td @click="employeesInfoRef.open(driversOneYear.filter(e => routesData.some(r => r.driver.id === e.id && moment(e.licence_end_date).diff(moment(), 'days') > 0 && moment(e.licence_end_date).diff(moment(), 'days') < 30)))" class="cursor-pointer hover:bg-blue-100">
+                    {{ driversOneYear.filter(e => routesData.some(r => r.driver.id === e.id && moment(e.licence_end_date).diff(moment(), 'days') > 0 && moment(e.licence_end_date).diff(moment(), 'days') < 30)).length }}
+                </td>
             </tr>
+
             <tr>
                 <td>2 yilgacha</td>
-                <th class="font-normal">{{ driversTwoYear.length }}</th>
-                <td>{{ routesData.filter(r => driversTwoYear.some(e => r.driver.id === e.id && r.distance_shot_traveled - r.total_distance > 15)).length }}</td>
-                <td>{{ routesData.filter(r => driversTwoYear.some(e => r.driver.id === e.id && moment(r.expectedEndDate).diff(moment(r.endDate), 'days') >= 2)).length }}</td>
-                <td>4</td>
+                <td @click="employeesInfoRef.open(driversTwoYear)" class="font-normal cursor-pointer hover:bg-blue-100">{{ driversTwoYear.length }}</td>
+                <td @click="driversInfoRef.open(routesData.filter(r => driversTwoYear.some(e => r.driver.id === e.id && r.distance_shot_traveled - r.total_distance > 15)))" class="cursor-pointer hover:bg-blue-100">
+                    {{ routesData.filter(r => driversTwoYear.some(e => r.driver.id === e.id && r.distance_shot_traveled - r.total_distance > 15)).length }}
+                </td>
+                <td @click="driversInfoRef.open(routesData.filter(r => driversTwoYear.some(e => r.driver.id === e.id && moment(r.expectedEndDate).diff(moment(r.endDate), 'days') >= 2)))" class="cursor-pointer hover:bg-blue-100">
+                    {{ routesData.filter(r => driversTwoYear.some(e => r.driver.id === e.id && moment(r.expectedEndDate).diff(moment(r.endDate), 'days') >= 2)).length }}
+                </td>
+                <td @click="employeesInfoRef.open(driversTwoYear.filter(e => routesData.some(r => r.driver.id === e.id && moment(e.licence_end_date).diff(moment(), 'days') > 0 && moment(e.licence_end_date).diff(moment(), 'days') < 30)))" class="cursor-pointer hover:bg-blue-100">
+                    {{ driversTwoYear.filter(e => routesData.some(r => r.driver.id === e.id && moment(e.licence_end_date).diff(moment(), 'days') > 0 && moment(e.licence_end_date).diff(moment(), 'days') < 30)).length }}
+                </td>
             </tr>
+
             <tr>
                 <td>3 yil va undan ko'p</td>
-                <th class="font-normal">{{ driversThreeYear.length }}</th>
-                <td>{{ routesData.filter(r => driversThreeYear.some(e => r.driver.id === e.id && r.distance_shot_traveled - r.total_distance > 15)).length }}</td>
-                <td>{{ routesData.filter(r => driversThreeYear.some(e => r.driver.id === e.id && moment(r.expectedEndDate).diff(moment(r.endDate), 'days') >= 2)).length }}</td>
-                <td>4</td>
+                <td @click="employeesInfoRef.open(driversThreeYear)" class="font-normal cursor-pointer hover:bg-blue-100">{{ driversThreeYear.length }}</td>
+                <td @click="driversInfoRef.open(routesData.filter(r => driversThreeYear.some(e => r.driver.id === e.id && r.distance_shot_traveled - r.total_distance > 15)))" class="cursor-pointer hover:bg-blue-100">
+                    {{ routesData.filter(r => driversThreeYear.some(e => r.driver.id === e.id && r.distance_shot_traveled - r.total_distance > 15)).length }}
+                </td>
+                <td @click="driversInfoRef.open(routesData.filter(r => driversThreeYear.some(e => r.driver.id === e.id && moment(r.expectedEndDate).diff(moment(r.endDate), 'days') >= 2)))" class="cursor-pointer hover:bg-blue-100">
+                    {{ routesData.filter(r => driversThreeYear.some(e => r.driver.id === e.id && moment(r.expectedEndDate).diff(moment(r.endDate), 'days') >= 2)).length }}
+                </td>
+                <td @click="employeesInfoRef.open(driversThreeYear.filter(e => routesData.some(r => r.driver.id === e.id && moment(e.licence_end_date).diff(moment(), 'days') > 0 && moment(e.licence_end_date).diff(moment(), 'days') < 30)))" class="cursor-pointer hover:bg-blue-100">
+                    {{ driversThreeYear.filter(e => routesData.some(r => r.driver.id === e.id && moment(e.licence_end_date).diff(moment(), 'days') > 0 && moment(e.licence_end_date).diff(moment(), 'days') < 30)).length }}
+                </td>
             </tr>
             </tbody>
         </table>
     </div>
+
+    <DriversInfoDrawer ref="driversInfoRef" />
+    <EmployeesInfoDrawer ref="employeesInfoRef" />
 </template>
 
 <script setup>
@@ -149,6 +268,8 @@ import {onMounted, ref} from "vue";
 import axios from "axios";
 import {ElMessage} from "element-plus";
 import moment from "moment";
+import DriversInfoDrawer from "@/views/reports/helpers/DriversInfoDrawer.vue";
+import EmployeesInfoDrawer from "@/views/reports/helpers/EmployeesInfoDrawer.vue";
 
 const employeeData = ref([])
 const routesData = ref([])
@@ -156,6 +277,8 @@ const driversOneYear = ref([])
 const driversTwoYear = ref([])
 const driversThreeYear = ref([])
 const loading = ref(false)
+const driversInfoRef = ref(null)
+const employeesInfoRef = ref(null)
 
 const seriesGenderChart = ref([])
 const genderChartOptions = ref({
