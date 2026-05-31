@@ -22,6 +22,11 @@
                         <el-input v-model="formData.year" type="number" placeholder="Kiriting"></el-input>
                     </el-form-item>
                 </el-col>
+                <el-col :span="12">
+                    <el-form-item label="Yoqilg'i sarfi (litr/km)" prop="consumptionPer1km">
+                        <el-input v-model="formData.consumptionPer1km" type="number" placeholder="Kiriting"></el-input>
+                    </el-form-item>
+                </el-col>
             </el-row>
             <div class="w-full flex justify-end items-center !mt-2">
                 <el-button class="w-30 !bg-[#577eff] !text-white " @click="save" :loading="loading" type="primary">Saqlash</el-button>
@@ -47,6 +52,7 @@ const defaultFormData = () => ({
     weight: null,
     place: null,
     year: null,
+    consumptionPer1km: null,
 })
 const formData = ref(defaultFormData())
 
@@ -55,6 +61,7 @@ const rules = reactive({
     weight: [{required: true, message: 'Мажбурий майдон', trigger: 'change'}],
     place: [{required: true, message: 'Мажбурий майдон', trigger: 'change'}],
     year: [{required: true, message: 'Мажбурий майдон', trigger: 'change'}],
+    consumptionPer1km: [{required: true, message: 'Мажбурий майдон', trigger: 'change'}],
 
 })
 

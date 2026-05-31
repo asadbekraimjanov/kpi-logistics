@@ -7,8 +7,8 @@
                         <span class="text-xl !ml-1 text-green-600 font-bold">{{ tableData.filter(e => e.status === 'ACTIVE').length }}</span></p>
             </div>
             <div class="flex items-center gap-3">
-                <el-select v-model="selectedRoute" @change="onRouteChange" class="!w-44" value-key="contact" placeholder="Marshrutni tanlang">
-                    <el-option v-for="item in tableData" :label="item.contact" :value="item.contact" />
+                <el-select v-model="selectedRoute" @change="onRouteChange" class="!w-44" placeholder="Marshrutni tanlang">
+                    <el-option v-for="item in tableData" :label="item.contact" :value="item.contact" :key="item.id" />
                 </el-select>
                 <el-select v-model="selectedStatus" @change="onStatusChanged" class="!w-40" >
                     <el-option label="Barchasi" value="ALL" />

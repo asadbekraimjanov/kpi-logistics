@@ -42,7 +42,7 @@
 
     <el-drawer v-model="drawer" show-close close-on-press-escape close-on-click-modal class="truck-drawer" size="40%">
         <template #header>
-            <p class="!m-0 !p-0">Truck nomi - reyslar ro'yxati</p>
+            <p class="!m-0 !p-0">Marshrut hisobotlari</p>
         </template>
         <div class="!mb-6">
             <p class="!mb-2 text-lg font-semibold text-teal-600 italic text-center">

@@ -77,13 +77,13 @@ const routes = [
                 title: 'Moliyaviy hisobotlar',
                 component: () => import('@/views/reports/FinancialStatements.vue')
             },
-            {
-                path: '/reports/monitoring-territories',
-                name: 'MonitoringTerritories',
-                icon: 'reports',
-                title: 'Hududlar monitoringi',
-                component: () => import('@/views/reports/MonitoringTerritories.vue')
-            },
+            // {
+            //     path: '/reports/monitoring-territories',
+            //     name: 'MonitoringTerritories',
+            //     icon: 'reports',
+            //     title: 'Hududlar monitoringi',
+            //     component: () => import('@/views/reports/MonitoringTerritories.vue')
+            // },
             // {
             //     path: '/reports/routes-statistics',
             //     name: 'RoutesStatistics',
