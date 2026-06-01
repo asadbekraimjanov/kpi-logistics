@@ -9,8 +9,8 @@
                <el-table-column label="Tashkilot" prop="work_place" />
                <el-table-column label="Bo'lim" prop="work_brench" />
                <el-table-column label="Lavozim" prop="position" />
-               <el-table-column label="Tizimda qachondan">
-                   <template #default="scope">{{ moment(scope.row.inSystem).format('DD.MM.YYYY') }}</template>
+               <el-table-column label="Tizimda qachondan" align="center">
+                   <template #default="scope">{{ scope.row.inSystem ? moment(scope.row.inSystem).format('DD.MM.YYYY') : '-' }}</template>
                </el-table-column>
                <el-table-column label="Tug'ilgan sana">
                    <template #default="scope">{{ moment(scope.row.birth_date).format('DD.MM.YYYY') }}</template>

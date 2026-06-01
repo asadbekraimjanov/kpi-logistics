@@ -32,7 +32,7 @@
                 <td>{{ item.rejected }}</td>
                 <td>{{ item.inProcess }}</td>
                 <td>{{ item.late }}</td>
-                <td class="font-semibold"
+                <td class="font-bold"
                         :class="item.efficiency < 20 ? 'text-red-500' : item.efficiency < 60 ? 'text-yellow-500' :
                         item.efficiency < 80 ? 'text-blue-500' : 'text-green-600'">{{ item.efficiency }} %
                 </td>
