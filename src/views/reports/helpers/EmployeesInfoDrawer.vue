@@ -63,7 +63,7 @@
                </el-table-column>
                <el-table-column label="Guvohnoma amal qilish muddati" align="center">
                    <template #default="scope">
-                       <p class="font-bold italic">{{ moment(scope.row.licence_end_date).format('DD.MM.YYYY') }}</p>
+                       <p class="font-bold italic">{{ scope.row.licence_end_date ? moment(scope.row.licence_end_date).format('DD.MM.YYYY') : '-' }}</p>
                    </template>
                </el-table-column>
            </el-table>
