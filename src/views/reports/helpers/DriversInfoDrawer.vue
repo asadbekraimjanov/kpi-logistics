@@ -4,6 +4,9 @@
             <el-table-column label="№" width="50">
                 <template #default="scope">{{ scope.$index + 1 }}</template>
             </el-table-column>
+            <el-table-column label="Haydovchi" min-width="140" align="center">
+                <template #default="scope">{{ scope.row.driver.full_name }}</template>
+            </el-table-column>
             <el-table-column label="Marshrut" min-width="180">
                 <template #default="scope">
                     <div class="flex items-center justify-between gap-2">
@@ -23,9 +26,6 @@
             </el-table-column>
             <el-table-column label="Kutilayotgan tugash vaqti" min-width="110" align="center">
                 <template #default="scope">{{ moment(scope.row.expectedEndDate).format('DD.MM.YYYY') }}</template>
-            </el-table-column>
-            <el-table-column label="Haydovchi" min-width="140" align="center">
-                <template #default="scope">{{ scope.row.driver.full_name }}</template>
             </el-table-column>
             <el-table-column label="Tashkilot" min-width="140" align="center">
                 <template #default="scope">{{ scope.row.driver.work_place }}</template>

@@ -23,7 +23,7 @@
                                     <span class="text-xl font-semibold">20</span>
                                     <!--                                <span class="text-green-500">80%</span>-->
                                 </p>
-                                <el-button @click="onDrawerOpen" type="primary" round :icon="Right" class="!w-8 !h-8 !bg-[#2558b3] !border-none hover:scale-[1.1] hover:!bg-blue-500"></el-button>
+                                <el-button :loading="loadingDrawer" @click="onDrawerOpen(item)" type="primary" round :icon="Right" class="!w-8 !h-8 !bg-[#2558b3] !border-none hover:scale-[1.1] hover:!bg-blue-500"></el-button>
                             </div>
                         </div>
                     </div>
@@ -40,36 +40,41 @@
         </div>
     </div>
 
-    <el-drawer v-model="drawer" show-close close-on-press-escape close-on-click-modal class="truck-drawer" size="40%">
+    <el-drawer v-model="drawer" @close="selectedTruck = null" show-close close-on-press-escape close-on-click-modal class="truck-drawer" size="40%">
         <template #header>
             <p class="!m-0 !p-0">Marshrut hisobotlari</p>
         </template>
-        <div class="!mb-6">
+
+        <div v-if="selectedTruck" class="!mb-6">
             <p class="!mb-2 text-lg font-semibold text-teal-600 italic text-center">
                 <el-icon><Timer /></el-icon>
                 Jarayonda
             </p>
-            <div v-for="item in 3">
+            <div v-for="item in truckData.filter(e => e.carType.id === selectedTruck.id && e.status === 'ACTIVE')">
                 <el-steps :active="1" finish-status="success" process-status="process">
-                    <el-step title="Toshkent" :icon="LocationFilled" description="Boshlanish: 11.04.2026" />
-                    <el-step title="Isuzu 5" :icon="Position" description="230 km" />
-                    <el-step title="Samarqand" :icon="LocationFilled" description="Tugash: 21.04.2026" />
+                    <el-step :title="item.from" :icon="LocationFilled" :description="`Boshlanish: ${moment(item.fligthTime[0]).format('DD.MM.YYYY')}`" />
+                    <el-step :title="item.carType.name" :icon="Position" :description="`${item.distance} km`" />
+                    <el-step :title="item.to" :icon="LocationFilled" :description="`Tugash: ${moment(item.fligthTime[1]).format('DD.MM.YYYY')}`" />
                 </el-steps>
             </div>
         </div>
-        <div>
+        <div v-if="selectedTruck">
             <p class="!mb-2 text-lg font-semibold text-sky-600 italic text-center">
                 <el-icon><Checked /></el-icon>
                 Tugallangan
             </p>
-            <div v-for="item in 3">
+            <div v-for="item in truckData.filter(e => e.carType.id === selectedTruck.id && e.status === 'DONE')">
                 <el-steps :active="3" finish-status="finish" process-status="process">
-                    <el-step title="Toshkent" :icon="LocationFilled" description="Boshlanish: 11.04.2026" />
-                    <el-step title="Isuzu 5" :icon="Position" description="230 km" />
-                    <el-step title="Samarqand" :icon="LocationFilled" description="Tugash: 21.04.2026" />
+                    <el-step :title="item.from" :icon="LocationFilled" :description="`Boshlanish: ${moment(item.fligthTime[0]).format('DD.MM.YYYY')}`" />
+                    <el-step :title="item.carType.name" :icon="Position" :description="`${item.distance} km`" />
+                    <el-step :title="item.to" :icon="LocationFilled" :description="`Tugash: ${moment(item.fligthTime[1]).format('DD.MM.YYYY')}`" />
                 </el-steps>
             </div>
         </div>
+        <p class="!mt-6 font-medium text-lg italic !pl-3 text-gray-800">
+            ✨
+            {{ selectedTruck.name }} avtomashinasi 1 km ga {{ selectedTruck.consumptionPer1km }} (l) benzin sarflaydi
+        </p>
     </el-drawer>
     <TransportDialogComponent @save="save" ref="dialog" />
 </template>
@@ -80,17 +85,33 @@ import {onMounted, ref} from "vue";
 import axios from "axios";
 import TransportDialogComponent from "@/views/transport/TransportDialogComponent.vue";
 import {ElMessage} from "element-plus";
+import moment from "moment";
 
 const drawer = ref(false)
 const loading = ref(false)
+const loadingDrawer = ref(false)
 const dialog = ref(null)
 const tableData = ref([])
+const truckData = ref([])
+const selectedTruck = ref(null)
 
 const save = async () => {
     await getTableData()
 }
 
-const onDrawerOpen = () => {
+const onDrawerOpen = async (item) => {
+    loadingDrawer.value = true
+    selectedTruck.value = item
+
+    try {
+        const res = (await axios.get('https://kpi-logistics-trucks-default-rtdb.firebaseio.com/loads.json')).data
+        truckData.value = Object.entries(res).map(([id, value]) => ({id, ...value}))
+    } catch {
+        ElMessage.error('Ma\'lumotlarni yuklashda xatolik!')
+    } finally {
+        loadingDrawer.value = false
+    }
+
     drawer.value = true
 }
 
