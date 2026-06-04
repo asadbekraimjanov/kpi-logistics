@@ -5,7 +5,9 @@
                 <img src="/tabler-icons/mail-fast.svg" alt="">
                 <p class="text-gray-800 font-semibold">Yuk ulanishi</p>
 
-                <el-select class="!w-48 !ml-2" placeholder="dispatcher@gmail.com" clearable/>
+                <el-select v-model="selectedDispatcher" class="!w-48 !ml-2" placeholder="dispatcher@gmail.com" clearable disabled>
+                    <el-option v-for="item in tableData" :label="item.contact" :value="item.contact" />
+                </el-select>
 
                 <p class="text-gray-800 font-semibold !ml-6">
                     Topilgan yuklar:
@@ -197,6 +199,7 @@ const filterDateRange = ref([]);
 const trucks = ref([]);
 const loading = ref(false);
 const dialog = ref(null);
+const selectedDispatcher = ref(null);
 
 const filters = ref({
     distance: '',
@@ -315,6 +318,8 @@ const tableRowStyle = ({rowIndex}) => {
 onMounted(async () =>{
     await getTruckData()
     await getTableData()
+    if (JSON.parse(localStorage.getItem('userData')).role === 'user')
+        selectedDispatcher.value = JSON.parse(localStorage.getItem('userData')).username
 })
 </script>
 
