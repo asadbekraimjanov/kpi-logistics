@@ -37,7 +37,6 @@ const optionsTerritories = ref({
             horizontal: false,
             borderRadius: 2,
             columnWidth: "45%",
-            distributed: true
         }
     },
 
