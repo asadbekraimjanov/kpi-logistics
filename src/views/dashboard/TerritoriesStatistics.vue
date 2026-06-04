@@ -35,7 +35,7 @@ const optionsTerritories = ref({
     plotOptions: {
         bar: {
             horizontal: false,
-            borderRadius: 8,
+            borderRadius: 2,
             columnWidth: "45%",
             distributed: true
         }
