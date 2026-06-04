@@ -35,26 +35,21 @@
                 </div>
             </div>
         </div>
-        <div class="font-medium !mt-3 text-lg">
+        <div v-if="averageData.length && profit && total" class="font-medium !mt-3 text-lg">
             <div class="ticker">
-                <div v-if="(averageData[1]?.average/averageData[0]?.average) > (profit/total) && (profit/total) < 1" class="text-red-600">
+                <div v-if="(averageData[1].average/averageData[0].average) > (profit/total)" class="text-red-600">
                     <el-icon class="translate-y-0.5 !mr-1 animate-pulse "><WarningFilled /></el-icon>
                     <span class="animate-pulse">Korxona oylik pul aylanmalari barcha davrlardagi o'rtacha pul aylanmalaridan quyi ko'rsatkichlarda</span>
                 </div>
-                <div v-else class="text-green-600">
-                    <el-icon class="translate-y-0.5 !mr-1 animate-pulse "><SuccessFilled /></el-icon>
-                    <span class="animate-pulse">Korxona ijobiy tomonga rivojlanmoqda</span>
-                </div>
             </div>
         </div>
-        {{ profit/total }}
     </el-card>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useTransition } from '@vueuse/core'
-import {SuccessFilled, WarningFilled} from "@element-plus/icons-vue";
+import { WarningFilled} from "@element-plus/icons-vue";
 
 
 const props = defineProps({
@@ -71,9 +66,7 @@ const fuelSource = ref(0)
 const averageData = ref([])
 
 const total = useTransition(totalSource, { duration: 1500 })
-const totalTicker = ref(0)
 const profit = useTransition(profitSource, { duration: 1000 })
-const profitTicker = ref(0)
 const tax = useTransition(taxSource, { duration: 500 })
 const fuel = useTransition(fuelSource, { duration: 500 })
 

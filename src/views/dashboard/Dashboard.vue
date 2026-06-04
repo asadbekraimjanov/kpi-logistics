@@ -1,10 +1,29 @@
 <template>
-    <div class="w-full !p-4">
+    <div class="w-full h-[calc(100vh-4.6rem)] !p-4 overflow-y-auto">
         <div class="flex justify-between gap-4">
             <FinancialStatsComponent v-if="monthlyFinancialData.length" :monthlyFinancialData="monthlyFinancialData" />
             <el-card class="w-3/5">
                 <p class="font-semibold text-lg text-blue-800">Moliyaviy samaradorlik davr bo'yicha tahlili</p>
                 <apexchart v-if="loadsData.length" type="area" height="200" :series="seriesCash" :options="optionsCash"/>
+            </el-card>
+        </div>
+        <div class="flex justify-between gap-4 !py-4">
+            <el-card class="w-1/3">
+                <p class="font-semibold text-lg text-blue-800 text-center">Rag'batlantirish kerak bo'lgan xodimlar</p>
+                <EmployeeStatisticsComponent  v-if="employeeData.length" :employee-data="employeeData" />
+            </el-card>
+            <el-card class="w-1/3">
+                <p class="font-semibold text-lg text-blue-800 text-center">Jins bo'yicha tahlil</p>
+                <EmployeeGenderStatistics  v-if="employeeData.length" :employee-data="employeeData" />
+            </el-card>
+            <el-card class="w-1/3">
+                <EmployeesCountComponent v-if="employeeData.length" :employee-data="employeeData" />
+            </el-card>
+        </div>
+        <div class="w-full">
+            <el-card>
+                <p class="font-semibold text-lg text-blue-800 text-center">Hududlar reytingi</p>
+                <TerritoriesStatistics />
             </el-card>
         </div>
     </div>
@@ -15,10 +34,15 @@ import FinancialStatsComponent from "@/views/dashboard/FinancialStatsComponent.v
 import {onMounted, ref} from "vue";
 import axios from "axios";
 import {ElMessage} from "element-plus";
+import EmployeeStatisticsComponent from "@/views/dashboard/EmployeeStatisticsComponent.vue";
+import EmployeeGenderStatistics from "@/views/dashboard/EmployeeGenderStatistics.vue";
+import EmployeesCountComponent from "@/views/dashboard/EmployeesCountComponent.vue";
+import TerritoriesStatistics from "@/views/dashboard/TerritoriesStatistics.vue";
 
 
 const loadsData = ref([])
 const monthlyFinancialData = ref([])
+const employeeData = ref([])
 const loading = ref(false)
 
 const seriesCash = [
@@ -147,6 +171,18 @@ const getLoadsData = async () => {
     }
 }
 
+const getEmployeeData = async () => {
+    loading.value = true
+
+    try {
+        employeeData.value = (await axios.get('http://localhost:5555/data')).data
+    } catch {
+        ElMessage.error('Xodim ma\'lumotlarini yuklashda xatolik')
+    } finally {
+        loading.value = false
+    }
+}
+
 const calculatePercentData = () => {
     const months = calculateMonthlyData()
 
@@ -195,12 +231,13 @@ const calculatePercentData = () => {
 }
 
 onMounted(async () => {
+    await getEmployeeData()
     await getLoadsData()
     await calculatePercentData()
 
 })
 </script>
 
-<style scoped>
+<style>
 
 </style>
