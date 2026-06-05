@@ -38,7 +38,7 @@ const routes = [
         path: '/routes',
         name: 'Routes',
         icon: 'routes',
-        title: 'Marshrutlar',
+        title: 'Marshrut biriktirish',
         component: () => import('@/views/routes/Routes.vue'),
     },
     // {

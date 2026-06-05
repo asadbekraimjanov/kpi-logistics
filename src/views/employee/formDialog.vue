@@ -111,7 +111,7 @@
             </el-row>
             <div class="w-full flex justify-end items-center">
                 <el-button class="w-30 !bg-[#577eff] !text-white " @click="save" :loading="loading" type="primary">Saqlash</el-button>
-                <el-button class="w-30" @close="close" type="danger">Bekor qilish</el-button>
+                <el-button class="w-30" @click="close" type="danger">Bekor qilish</el-button>
             </div>
         </el-form>
     </el-dialog>

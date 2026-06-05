@@ -128,7 +128,7 @@ const calculateMonthlyData = () => {
         const distance = Number(item.distance || 0)
         const consumptionPer1km = Number(item.carType?.consumptionPer1km || 0)
 
-        const fuel = Math.round((consumptionPer1km * distance * 13000) / (100 * 12000))
+        const fuel = Math.round((consumptionPer1km * distance * 13000) / (12000))
 
         priceData[month] += price
         taxData[month] += tax

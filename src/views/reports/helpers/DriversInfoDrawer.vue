@@ -34,7 +34,7 @@
                 <template #default="scope">{{ scope.row.driver.work_brench }}</template>
             </el-table-column>
             <el-table-column label="Lavozim" min-width="140" align="center">
-                <template #default="scope">{{ scope.row.driver.position }}</template>
+                <template #default="scope">{{ EmployeePositionsJson[scope.row.driver.position] }}</template>
             </el-table-column>
             <el-table-column label="Kechikish (kun hisobida)" min-width="100" align="center">
                 <template #default="scope">
@@ -80,6 +80,7 @@
 import {ref} from "vue";
 import moment from "moment";
 import {PhoneFilled} from "@element-plus/icons-vue";
+import EmployeePositionsJson from "../../../helpers/jsons/EmployeePositionsJson.js";
 
 const visible = ref(false)
 const tableData = ref([])

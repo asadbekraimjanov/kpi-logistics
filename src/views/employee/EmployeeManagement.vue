@@ -100,7 +100,9 @@
             <el-table-column label="Tashkilot" prop="work_place" min-width="130" />
 
             <el-table-column label="Bo'lim" prop="work_brench" min-width="130" />
-            <el-table-column label="Lavozim" prop="position" min-width="130" />
+            <el-table-column label="Lavozim" prop="position" min-width="130">
+                <template #default="scope">{{ EmployeePositionsJson[scope.row.position] }}</template>
+            </el-table-column>
             <el-table-column label="Tizimda qachondan" min-width="120">
                 <template #default="scope">
                     {{ scope.row.inSystem ? moment(scope.row.inSystem).format('DD.MM.YYYY') : '' }}
@@ -134,7 +136,9 @@
                 </template>
             </el-table-column>
 
-            <el-table-column label="Jinsi" prop="gender" width="80" />
+            <el-table-column label="Jinsi" prop="gender" width="80">
+                <template #default="scope">{{ scope.row.gender === 'MALE' ? 'Erkak' : 'Ayol' }}</template>
+            </el-table-column>
 
             <el-table-column label="Telefon raqami" min-width="160">
                 <template #default="scope">
@@ -190,6 +194,7 @@ import EmployeeInfoDrawer from "@/views/employee/EmployeeInfoDrawer.vue";
 import axios from "axios";
 import FormDialog from "@/views/employee/formDialog.vue";
 import {ElMessage, ElMessageBox} from "element-plus";
+import EmployeePositionsJson from "../../helpers/jsons/EmployeePositionsJson.js";
 
 const fullNameFilter = ref('')
 const phoneFilter = ref('')

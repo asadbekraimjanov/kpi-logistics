@@ -30,10 +30,10 @@
             <tbody>
             <tr v-for="(row, index) in tableRows" :key="index">
                 <td class="font-semibold text-gray-800">{{ row.month }}</td>
-                <td class="font-semibold text-gray-800">{{ row.price ? row.price + ' $' : 0 }}</td>
-                <td class="font-semibold text-gray-800">{{ row.profit ? row.profit + ' $' : 0 }}</td>
-                <td class="font-semibold text-gray-800">{{ row.tax ? row.tax + ' $' : 0 }}</td>
-                <td class="font-semibold text-gray-800">{{ row.fuel ? row.fuel + ' $' : 0 }}</td>
+                <td class="font-semibold text-gray-800">{{ row.price ? numberFormat(row.price) + ' $' : 0 }}</td>
+                <td class="font-semibold text-gray-800">{{ row.profit ? numberFormat(row.profit) + ' $' : 0 }}</td>
+                <td class="font-semibold text-gray-800">{{ row.tax ? numberFormat(row.tax) + ' $' : 0 }}</td>
+                <td class="font-semibold text-gray-800">{{ row.fuel ? numberFormat(row.fuel) + ' $' : 0 }}</td>
                 <td class="font-bold" :class="row.percent < 20 ? 'text-red-500' : row.percent < 60 ? 'text-yellow-500' :
                         row.percent < 80 ? 'text-blue-500' : 'text-green-600'">{{ row.percent }}%</td>
             </tr>
@@ -209,6 +209,11 @@ const tableRows = computed(() => {
     })
 })
 
+const numberFormat = (value) => {
+    if (!value) return '0'
+    return new Intl.NumberFormat('en-US').format(value)
+}
+
 const calculateTotals = () => {
     return tableData.value.reduce(
         (acc, item) => {
@@ -219,7 +224,7 @@ const calculateTotals = () => {
             const consumptionPer1km = Number(item.carType?.consumptionPer1km || 0)
 
             const fuel = Math.round(
-                (consumptionPer1km * distance * 13000) / (100 * 12000)
+                (consumptionPer1km * distance * 13000) / (12000)
             )
 
             acc.price += price
@@ -255,7 +260,7 @@ const calculateMonthlyData = () => {
         const distance = Number(item.distance || 0)
         const consumptionPer1km = Number(item.carType?.consumptionPer1km || 0)
 
-        const fuel = Math.round((consumptionPer1km * distance * 13000) / (100 * 12000))
+        const fuel = Math.round((consumptionPer1km * distance * 13000) / (12000))
 
         priceData[month] += price
         taxData[month] += tax

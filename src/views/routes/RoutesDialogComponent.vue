@@ -6,9 +6,9 @@
                     <el-form-item label="Yuk" prop="load">
                         <el-select v-model="load" @change="onLoadSelected" placeholder="Tanlang" value-key="id">
                             <el-option v-for="item in loads" :value="item">
-                                <div class="w-[500px] flex justify-between">
+                                <div class="w-[600px] flex justify-between">
                                     <p>{{ item.from }} -> {{ item.to }}</p>
-                                    <p>{{ item.weight }} kg ({{ moment(item.startDate).format('DD.MM.YYYY') }})</p>
+                                    <p>{{ item.weight }} kg ({{ `${moment(item.fligthTime[0]).format('DD.MM.YYYY')} - ${moment(item.fligthTime[1]).format('DD.MM.YYYY')}` }})</p>
                                 </div>
                             </el-option>
                         </el-select>
@@ -45,7 +45,10 @@
                     </el-form-item>
                 </el-col>
                 <el-col :span="12">
-                    <el-form-item label="Manzilga borgan vaqt" prop="endDate">
+                    <el-form-item v-if="formData.status === 'DONE'" label="Manzilga borgan vaqt" prop="endDate">
+                        <el-date-picker v-model="formData.endDate" format="DD.MM.YYYY" placeholder="Tanlang" class="!w-full"></el-date-picker>
+                    </el-form-item>
+                    <el-form-item v-else label="Manzilga borgan vaqt">
                         <el-date-picker v-model="formData.endDate" format="DD.MM.YYYY" placeholder="Tanlang" class="!w-full"></el-date-picker>
                     </el-form-item>
                 </el-col>
@@ -73,7 +76,7 @@
             </el-row>
             <div class="w-full flex justify-end items-center !mt-2">
                 <el-button class="w-30 !bg-[#577eff] !text-white " @click="save" :loading="loading" type="primary">Saqlash</el-button>
-                <el-button class="w-30" @close="close" type="danger">Bekor qilish</el-button>
+                <el-button class="w-30" @click="close" type="danger">Bekor qilish</el-button>
             </div>
         </el-form>
     </el-dialog>

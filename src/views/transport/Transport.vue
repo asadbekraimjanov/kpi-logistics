@@ -19,8 +19,8 @@
                             <p class="text-gray-700 font-medium">{{ item.weight }} kg</p>
                             <p class="font-bold text-2xl text-[#2558b3]">{{ item.name }}</p>
                             <div class="flex gap-2">
-                                <p class="w-4/5 text-sm text-gray-700">Reyslar soni:
-                                    <span class="text-xl font-semibold">20</span>
+                                <p class="w-4/5 text-sm text-gray-700">Yoqilg'i sarfi:
+                                    <span class="text-lg font-semibold">{{ item.consumptionPer1km }} L/km</span>
                                     <!--                                <span class="text-green-500">80%</span>-->
                                 </p>
                                 <el-button :loading="loadingDrawer" @click="onDrawerOpen(item)" type="primary" round :icon="Right" class="!w-8 !h-8 !bg-[#2558b3] !border-none hover:scale-[1.1] hover:!bg-blue-500"></el-button>

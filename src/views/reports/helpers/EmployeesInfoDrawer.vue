@@ -1,5 +1,5 @@
 <template>
-    <el-drawer v-model="visible" title="Xodim hisobotlari" @close="close" direction="btt" class="employee-reports-drawer" size="100%">
+    <el-drawer v-model="visible" :title="props.drawerTitle ? props.drawerTitle : 'Xodim hisobotlari'" @close="close" direction="btt" class="employee-reports-drawer" size="100%">
        <div class="w-full overflow-x-auto">
            <el-table :data="tableData" class="w-full" header-cell-class-name="!text-gray-800 !bg-gray-300" border>
                <el-table-column label="№" width="50">
@@ -8,7 +8,9 @@
                <el-table-column label="F.I.Sh" prop="full_name" class-name="font-bold" />
                <el-table-column label="Tashkilot" prop="work_place" />
                <el-table-column label="Bo'lim" prop="work_brench" />
-               <el-table-column label="Lavozim" prop="position" />
+               <el-table-column label="Lavozim" prop="position">
+                   <template #default="scope">{{ EmployeePositionsJson[scope.row.position] }}</template>
+               </el-table-column>
                <el-table-column label="Tizimda qachondan" align="center">
                    <template #default="scope">{{ scope.row.inSystem ? moment(scope.row.inSystem).format('DD.MM.YYYY') : '-' }}</template>
                </el-table-column>
@@ -75,6 +77,16 @@
 import {ref} from "vue";
 import moment from "moment";
 import {PhoneFilled} from "@element-plus/icons-vue";
+import EmployeePositionsJson from "../../../helpers/jsons/EmployeePositionsJson.js";
+
+
+const props = defineProps({
+    drawerTitle: {
+        required: false,
+        type: String,
+        default: () => { return null }
+    }
+})
 
 const visible = ref(false)
 const tableData = ref([])
@@ -93,6 +105,7 @@ defineExpose({
     open,
     close
 })
+
 </script>
 
 <style scoped>

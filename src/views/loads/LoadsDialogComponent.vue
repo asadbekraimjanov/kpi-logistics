@@ -29,7 +29,7 @@
                 </el-col>
                 <el-col :span="12">
                     <el-form-item label="Yuk miqdori (kg)" prop="weight">
-                        <el-input v-model="formData.weight" placeholder="Kiriting" clearable></el-input>
+                        <el-input v-model="formData.weight" :placeholder="`Kiriting (maks: ${formData.carType ? formData.carType.weight : '0'})`" clearable></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :span="12">
@@ -73,7 +73,7 @@
             </el-row>
             <div class="w-full flex justify-end items-center !mt-2">
                 <el-button class="w-30 !bg-[#577eff] !text-white " @click="save" :loading="loading" type="primary">Saqlash</el-button>
-                <el-button class="w-30" @close="close" type="danger">Bekor qilish</el-button>
+                <el-button class="w-30" @click="close" type="danger">Bekor qilish</el-button>
             </div>
         </el-form>
     </el-dialog>
