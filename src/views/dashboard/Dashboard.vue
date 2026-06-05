@@ -8,15 +8,15 @@
             </el-card>
         </div>
         <div class="flex justify-between gap-4 !py-4">
-            <el-card class="w-1/3">
+            <el-card class="w-[40%]">
                 <p class="font-semibold text-lg text-blue-800 text-center">Rag'batlantirish kerak bo'lgan xodimlar</p>
                 <EmployeeStatisticsComponent  v-if="employeeData.length" :employee-data="employeeData" />
             </el-card>
-            <el-card class="w-1/3">
+            <el-card class="w-[25%]">
                 <p class="font-semibold text-lg text-blue-800 text-center">Jins bo'yicha tahlil</p>
                 <EmployeeGenderStatistics  v-if="employeeData.length" :employee-data="employeeData" />
             </el-card>
-            <el-card class="w-1/3">
+            <el-card class="w-[35%]">
                 <EmployeesCountComponent v-if="employeeData.length" :employee-data="employeeData" />
             </el-card>
         </div>
